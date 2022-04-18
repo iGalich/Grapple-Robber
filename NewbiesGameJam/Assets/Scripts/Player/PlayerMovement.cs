@@ -30,8 +30,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dashCooldown = 1f;
     private float _dashCounter;
     private float _dashCooldownCounter;
-    private bool _isDashing = false;
-
 
     [Header ("Layers")]
     [SerializeField] private LayerMask _groundLayer;
@@ -100,8 +98,14 @@ public class PlayerMovement : MonoBehaviour
         BasicMovement(_horizontalInput);
 
         if (IsGrounded())
+        {
             _lastWall = null;
-
+            _coyoteCounter = _coyoteTime; // Reset coyote counter
+        }
+        else
+        {
+            _coyoteCounter -= Time.deltaTime;
+        }
     }
 
     private bool CheckIfInControl()
@@ -143,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (_isInControl && IsGrounded())
+        if (_isInControl && (IsGrounded() || _coyoteCounter >= 0))
         {
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
         }
