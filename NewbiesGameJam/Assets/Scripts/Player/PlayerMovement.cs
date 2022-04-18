@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpPower = 20f;
     private float _horizontalInput;
+    private float _initialMoveSpeed;
     private bool _isInControl;
 
     [Header ("Coyote Time")]
@@ -24,11 +25,13 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
 
     [Header ("Dash")]
-    [SerializeField] private float _dashSpeed = 15f;
-    [SerializeField] private float _dashDuration = 0.3f;
-    [SerializeField] private float _resetDashCooldown = 3f;
-    private float _dashCooldown;
-    private bool _isDashing;
+    [SerializeField] private float _dashPower = 2f;
+    [SerializeField] private float _dashLength = 0.5f;
+    [SerializeField] private float _dashCooldown = 1f;
+    private float _dashCounter;
+    private float _dashCooldownCounter;
+    private bool _isDashing = false;
+
 
     [Header ("Layers")]
     [SerializeField] private LayerMask _groundLayer;
@@ -42,7 +45,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _collider = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
         _initialGravity = _body.gravityScale;
+        _initialMoveSpeed = _speed;
     }
 
     private void Update()
@@ -61,7 +69,31 @@ public class PlayerMovement : MonoBehaviour
             Jump();
 
         CheckForWall();
-        DashCheck();
+        CheckDash();
+    }
+
+    private void CheckDash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashCooldownCounter <= 0 && _dashCounter <= 0)
+        {
+            _speed *= _dashPower;
+            _dashCounter = _dashLength;
+        }
+
+        if (_dashCounter > 0)
+        {
+            _dashCounter -= Time.deltaTime;
+            if (_dashCounter < 0)
+            {
+                _speed = _initialMoveSpeed;
+                _dashCooldownCounter = _dashCooldown;
+            }
+        }
+
+        if (_dashCooldownCounter > 0)
+        {
+            _dashCooldownCounter -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate() 
@@ -71,36 +103,9 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
             _lastWall = null;
 
-        if (_isDashing)
-            StartCoroutine(Dash());
     }
 
-    private IEnumerator Dash()
-    {
-        var startTime = Time.time;
-        var localScaleX = transform.localScale.x;
 
-        while (Time.time < startTime + _dashDuration)
-        {
-            var movementSpeed = _dashSpeed * Time.deltaTime;
-
-            transform.Translate(movementSpeed * Mathf.Sign(localScaleX), 0, 0);
-            _dashCooldown = _resetDashCooldown;
-
-            yield return null;
-        }
-        _isDashing = false;
-    }
-
-    private void DashCheck()
-    {
-        _dashCooldown -= Time.deltaTime;
-        if (_dashCooldown < 0)
-            _dashCooldown = -1;
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashCooldown < 0)
-            _isDashing = true;
-    }
 
     private bool CheckIfInControl()
     {
