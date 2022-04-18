@@ -67,6 +67,13 @@ public class PlayerMovement : MonoBehaviour
 
         CheckForWall();
         CheckDash();
+        CheckJumpRelease(); // Adjustable jump height
+    }
+
+    private void CheckJumpRelease()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0)
+            _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * 0.5f);
     }
 
     private void CheckDash()
