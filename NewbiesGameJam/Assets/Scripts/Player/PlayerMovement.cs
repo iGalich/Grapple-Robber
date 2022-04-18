@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Layers")]
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private LayerMask _wallLayer;
 
     // References
     private BoxCollider2D _collider;
@@ -105,8 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-
-
     private bool CheckIfInControl()
     {
         return _wallJumpCounter <= 0;
@@ -168,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsOnWall()
     {
-        _wallHit = Physics2D.Raycast(transform.position, new Vector2(_wallDistance * Mathf.Sign(transform.localScale.x), 0), _wallDistance, _wallLayer);
+        _wallHit = Physics2D.Raycast(transform.position, new Vector2(_wallDistance * Mathf.Sign(transform.localScale.x), 0), _wallDistance, _groundLayer);
         Debug.DrawRay(transform.position, new Vector2(_wallDistance, 0) * Mathf.Sign(transform.localScale.x), Color.red);
         return _wallHit;
     }
