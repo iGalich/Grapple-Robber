@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float _horizontalInput;
     private float _initialMoveSpeed;
     private bool _isInControl;
+    private bool _canJump;
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -108,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
+            _canJump = true;
         }
         else
         {
@@ -133,16 +135,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isGrabbingWall && _isInControl)
         {
+            _canJump = true;
             _body.gravityScale = 0;
             _body.velocity = Vector2.zero;
+            _coyoteCounter = _coyoteTime; // Coyote time is reset so player can have a small frame to jump after leaving wall
+
             // On jump from wall, control is taken away for a short moment
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                _canJump = false;
                 _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
-                _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed, _jumpPower);
+                _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed, _jumpPower); // send the player away from the wall
                 _isGrabbingWall = false;
             }
         }
@@ -154,9 +160,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (_isInControl && (IsGrounded() || _coyoteCounter >= 0))
+        if (_isInControl && _canJump && (IsGrounded() || _coyoteCounter >= 0))
         {
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
+            _canJump = false;
         }
     }
     
