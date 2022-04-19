@@ -7,7 +7,7 @@ public class GrapplingGun : MonoBehaviour
 
     [Header("Layers Settings:")]
     [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int grappableLayerNumber = 9;
+    [SerializeField] private int grappableLayerNumber = 6;
 
     [Header("Main Camera:")]
     public Camera m_camera;

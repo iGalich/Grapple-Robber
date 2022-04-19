@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
+    private bool _isGrounded; // used for debugging only
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -71,6 +72,24 @@ public class PlayerMovement : MonoBehaviour
         CheckJumpRelease(); // Adjustable jump height
     }
 
+    private void FixedUpdate() 
+    {
+        BasicMovement(_horizontalInput);
+
+        if (IsGrounded())
+        {
+            _isGrounded = true;
+            _lastWall = null;
+            _coyoteCounter = _coyoteTime; // Reset coyote counter
+            _canJump = true;
+        }
+        else
+        {
+            _isGrounded = false;
+            _coyoteCounter -= Time.deltaTime;
+        }
+    }
+    
     private void CheckJumpRelease()
     {
         if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0)
@@ -101,22 +120,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() 
-    {
-        BasicMovement(_horizontalInput);
-
-        if (IsGrounded())
-        {
-            _lastWall = null;
-            _coyoteCounter = _coyoteTime; // Reset coyote counter
-            _canJump = true;
-            _canJump = false;
-        }
-        else
-        {
-            _coyoteCounter -= Time.deltaTime;
-        }
-    }
 
     private bool CheckIfInControl()
     {
@@ -161,8 +164,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        // Debug.Log("is in control " + _isInControl);
+        // Debug.Log("can jump " + _canJump);
+        // Debug.Log("is grounded " + IsGrounded());
+        // Debug.Log("coyote counter is more than zero " + (_coyoteCounter >= 0));
         if (_isInControl && _canJump && (IsGrounded() || _coyoteCounter >= 0))
         {
+            Debug.Log("trying to jump");
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _canJump = false;
         }
