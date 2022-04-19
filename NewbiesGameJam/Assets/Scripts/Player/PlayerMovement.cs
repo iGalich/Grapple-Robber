@@ -37,12 +37,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     // References
-    private BoxCollider2D _collider;
+    private CircleCollider2D _collider;
     private Rigidbody2D _body;
 
     private void Awake() 
     {
-        _collider = GetComponent<BoxCollider2D>();
+        _collider = GetComponent<CircleCollider2D>();
         _body = GetComponent<Rigidbody2D>();
     }
 
