@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
+    private bool _isRunning = false;
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -38,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     // References
     private BoxCollider2D _collider;
     private Rigidbody2D _body;
+
+    public bool IsRunning => _isRunning;
 
     private void Awake() 
     {
