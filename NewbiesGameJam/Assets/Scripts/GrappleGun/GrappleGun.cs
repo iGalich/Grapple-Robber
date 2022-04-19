@@ -33,12 +33,12 @@ public class GrappleGun : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector2 grapplePosition = Vector2.Lerp(transform.position, _target, _grappleSpeed * Time.deltaTime);
-        transform.position = grapplePosition;
+        Vector2 grapplePosition = Vector2.Lerp(GameManager.Instance.player.position, _target, _grappleSpeed * Time.deltaTime);
+        GameManager.Instance.player.position = grapplePosition;
 
-        _rope.SetPosition(0, transform.position);
+        _rope.SetPosition(0, GameManager.Instance.player.position);
 
-        if (Vector2.Distance(transform.position, _target) < 0.5f)
+        if (Vector2.Distance(GameManager.Instance.player.position, _target) < 0.5f)
         {
             _isRetracting = false;
             _isGrappling = false;
@@ -48,8 +48,8 @@ public class GrappleGun : MonoBehaviour
 
     private void StartGrapple()
     {
-        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _maxDistance, _grappableLayer);
+        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - GameManager.Instance.player.position;
+        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.player.position, direction, _maxDistance, _grappableLayer);
 
         if (hit.collider != null)
         {
@@ -64,16 +64,16 @@ public class GrappleGun : MonoBehaviour
 
     private IEnumerator Grapple()
     {
-        var time = 10;
-        _rope.SetPosition(0, transform.position);
-        _rope.SetPosition(1, transform.position);
+        var time = 1;
+        _rope.SetPosition(0, GameManager.Instance.player.position);
+        _rope.SetPosition(1, GameManager.Instance.player.position);
 
         Vector2 newPosition;
 
         for (float t = 0; t < time; t += _grappleFireSpeed * Time.deltaTime)
         {
-            newPosition = Vector2.Lerp(transform.position, _target, t / time);
-            _rope.SetPosition(0, transform.position);
+            newPosition = Vector2.Lerp(GameManager.Instance.player.position, _target, t / time);
+            _rope.SetPosition(0, GameManager.Instance.player.position);
             _rope.SetPosition(1, newPosition);
             yield return null;
         }
