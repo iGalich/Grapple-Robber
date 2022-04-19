@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isInControl;
     private bool _canJump;
     private bool _isGrounded; // used for debugging only
+    private bool _isGrappling = false;
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -37,12 +38,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     // References
-    private CircleCollider2D _collider;
+    private BoxCollider2D _collider;
     private Rigidbody2D _body;
+
+    public bool IsInControl => _isInControl;
 
     private void Awake() 
     {
-        _collider = GetComponent<CircleCollider2D>();
+        _collider = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
     }
 
@@ -64,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
         FlipSprite();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            Jump();
+        GetInput();
 
         CheckForWall();
         CheckDash();
@@ -88,6 +90,13 @@ public class PlayerMovement : MonoBehaviour
             _isGrounded = false;
             _coyoteCounter -= Time.deltaTime;
         }
+    }
+
+    private void GetInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
+        _isGrappling = Input.GetMouseButton(0);
     }
     
     private void CheckJumpRelease()
@@ -119,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
             _dashCooldownCounter -= Time.deltaTime;
         }
     }
-
 
     private bool CheckIfInControl()
     {
@@ -156,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 _isGrabbingWall = false;
             }
         }
-        else
+        else if (!_isGrappling)
         {
             _body.gravityScale = _initialGravity;
         }
@@ -164,13 +172,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // Debug.Log("is in control " + _isInControl);
-        // Debug.Log("can jump " + _canJump);
-        // Debug.Log("is grounded " + IsGrounded());
-        // Debug.Log("coyote counter is more than zero " + (_coyoteCounter >= 0));
         if (_isInControl && _canJump && (IsGrounded() || _coyoteCounter >= 0))
         {
-            Debug.Log("trying to jump");
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _canJump = false;
         }
