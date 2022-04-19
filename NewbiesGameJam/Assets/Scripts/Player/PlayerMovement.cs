@@ -110,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
             _lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
             _canJump = true;
+            _canJump = false;
         }
         else
         {
