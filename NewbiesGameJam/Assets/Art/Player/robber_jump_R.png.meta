@@ -39,6 +39,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -232,6 +233,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      robber_jump_R_2: -4141257516174244455
+      robber_jump_R_3: -2298143619680337457
+      robber_jump_R_1: -4157796319811257675
+      robber_jump_R_0: -7817392046596436824
+      robber_jump_R_4: -2070572013905827497
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
