@@ -3,9 +3,12 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    enum State {Idle, Running, Jumping, WallHanging};
+
     [Header ("Movement Parameters")]
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpPower = 20f;
+    private State _playerState;
     private float _horizontalInput;
     private float _initialMoveSpeed;
     private bool _isInControl;

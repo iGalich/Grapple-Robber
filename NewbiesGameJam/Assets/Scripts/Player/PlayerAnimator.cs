@@ -17,7 +17,7 @@ public class PlayerAnimator : MonoBehaviour
         if (_player == null)
             return;
 
-        if (_playerMovement.IsRunning)
-            _anim.SetBool()
+        // if (_playerMovement.IsRunning)
+        //     _anim.SetBool();
     }
 }
