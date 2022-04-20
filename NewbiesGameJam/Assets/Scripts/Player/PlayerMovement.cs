@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public float HorizontalInput => _horizontalInput;
     public bool IsJumping => _isJumping;
     public bool IsFalling => _isFalling;
+    public bool IsGrabbingWall => _isGrabbingWall;
 
     private void Awake() 
     {
@@ -155,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         if (_isGrabbingWall && _isInControl)
         {
             _canJump = true;
+            _isJumping = false;
             _body.gravityScale = 0;
             _body.velocity = Vector2.zero;
             _coyoteCounter = _coyoteTime; // Coyote time is reset so player can have a small frame to jump after leaving wall

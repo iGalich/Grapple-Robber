@@ -28,6 +28,7 @@ public class PlayerAnimator : MonoBehaviour
         _anim.SetBool(FallKey, _player.IsFalling);
         _anim.SetBool(JumpKey, _player.IsJumping);
         _anim.SetBool(GroundedKey, _player.IsGrounded());
+        _anim.SetBool(WallGrabKey, _player.IsGrabbingWall);
     }
 
     #region Animation Leys
@@ -36,6 +37,7 @@ public class PlayerAnimator : MonoBehaviour
     private static readonly int RunKey = Animator.StringToHash("Running");
     private static readonly int FallKey = Animator.StringToHash("Falling");
     private static readonly int JumpKey = Animator.StringToHash("Jumping");
+    private static readonly int WallGrabKey = Animator.StringToHash("GrabbingWall");
 
     #endregion
 }
