@@ -4,8 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public PlayerMovement playerMovement;
     public GameObject player;
+    public PlayerMovement playerMovement;
 
     private void Awake()
     {

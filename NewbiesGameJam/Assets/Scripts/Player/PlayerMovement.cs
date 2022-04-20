@@ -3,17 +3,15 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    enum State {Idle, Running, Jumping, WallHanging};
-
     [Header ("Movement Parameters")]
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpPower = 20f;
-    private State _playerState;
     private float _horizontalInput;
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
-    private bool _isRunning = false;
+    private bool _isJumping = false;
+    private bool _isFalling = false;
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -43,7 +41,9 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _collider;
     private Rigidbody2D _body;
 
-    public bool IsRunning => _isRunning;
+    public float HorizontalInput => _horizontalInput;
+    public bool IsJumping => _isJumping;
+    public bool IsFalling => _isFalling;
 
     private void Awake() 
     {
@@ -72,15 +72,43 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             Jump();
 
+        if (_body.velocity.y <= -0.1f)
+        {
+            _isFalling = true;
+            _isJumping = false;
+        }
+        else
+        {
+            _isFalling = false;
+        }
+
         CheckForWall();
         CheckDash();
         CheckJumpRelease(); // Adjustable jump height
     }
 
+    private void FixedUpdate() 
+    {
+        BasicMovement(_horizontalInput);
+
+        if (IsGrounded())
+        {
+            _lastWall = null;
+            _coyoteCounter = _coyoteTime; // Reset coyote counter
+            _canJump = true;
+        }
+        else
+        {
+            _coyoteCounter -= Time.deltaTime;
+        }
+    }
+
     private void CheckJumpRelease()
     {
         if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0)
+        {
             _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * 0.5f);
+        }
     }
 
     private void CheckDash()
@@ -107,21 +135,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() 
-    {
-        BasicMovement(_horizontalInput);
-
-        if (IsGrounded())
-        {
-            _lastWall = null;
-            _coyoteCounter = _coyoteTime; // Reset coyote counter
-            _canJump = true;
-        }
-        else
-        {
-            _coyoteCounter -= Time.deltaTime;
-        }
-    }
 
     private bool CheckIfInControl()
     {
@@ -149,6 +162,8 @@ public class PlayerMovement : MonoBehaviour
             // On jump from wall, control is taken away for a short moment
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                _isJumping = true;
+                _isFalling = false;
                 _canJump = false;
                 _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
@@ -170,6 +185,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _canJump = false;
+            _isJumping = true;
+            _isFalling = false;
         }
     }
     
@@ -194,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
         return _wallHit;
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0 , Vector2.down, 0.1f, _groundLayer);
         
