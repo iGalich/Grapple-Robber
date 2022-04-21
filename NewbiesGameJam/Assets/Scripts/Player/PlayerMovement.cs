@@ -10,8 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
+
+    private bool _isGrounded; // used for debugging only
+    private bool _isGrappling = false;
     private bool _isJumping = false;
     private bool _isFalling = false;
+
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -41,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _collider;
     private Rigidbody2D _body;
 
+    public bool IsInControl => _isInControl;
     public float HorizontalInput => _horizontalInput;
     public bool IsJumping => _isJumping;
     public bool IsFalling => _isFalling;
@@ -70,8 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
         FlipSprite();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            Jump();
+        GetInput();
 
         if (_body.velocity.y <= -0.1f)
         {
@@ -94,14 +98,25 @@ public class PlayerMovement : MonoBehaviour
 
         if (IsGrounded())
         {
+            _isGrounded = true;
+
             _lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
             _canJump = true;
         }
         else
         {
+            _isGrounded = false;
+
             _coyoteCounter -= Time.deltaTime;
         }
+    }
+
+    private void GetInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
+        _isGrappling = Input.GetMouseButton(0);
     }
 
     private void CheckJumpRelease()
@@ -135,7 +150,6 @@ public class PlayerMovement : MonoBehaviour
             _dashCooldownCounter -= Time.deltaTime;
         }
     }
-
 
     private bool CheckIfInControl()
     {
@@ -175,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
                 _isGrabbingWall = false;
             }
         }
-        else
+        else if (!_isGrappling)
         {
             _body.gravityScale = _initialGravity;
         }
