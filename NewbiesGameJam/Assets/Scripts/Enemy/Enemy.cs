@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
         if (other.gameObject == _player)
         {
             GameManager.Instance.playerAnimator.TriggerKick();
+            //GameManager.Instance.cameraController.CameraShake.StartShake();
+            GameManager.Instance.cameraController.ShakeCamera();
+            TimeManager.Instance.DoSlowmotion();
             //Death();
         }
     }

@@ -75,7 +75,7 @@ public class GrapplingRope : MonoBehaviour
             if (!isGrappling)
             {
                 grapplingGun.Grapple();
-                isGrappling = true;
+                isGrappling = true; // this
             }
             if (waveSize > 0)
             {
@@ -109,6 +109,6 @@ public class GrapplingRope : MonoBehaviour
     void DrawRopeNoWaves()
     {
         m_lineRenderer.SetPosition(0, grapplingGun.firePoint.position);
-        m_lineRenderer.SetPosition(1, grapplingGun.grapplePoint);
+        m_lineRenderer.SetPosition(1, grapplingGun.grapplePoint); // this
     }
 }

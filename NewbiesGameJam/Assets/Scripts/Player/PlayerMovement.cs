@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D _collider;
     private Rigidbody2D _body;
 
+    public Vector2 Velocity => _body.velocity;
     public bool IsInControl => _isInControl;
     public float HorizontalInput => _horizontalInput;
     public bool IsJumping => _isJumping;

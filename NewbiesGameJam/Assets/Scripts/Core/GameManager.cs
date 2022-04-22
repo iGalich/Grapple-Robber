@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerAnimator playerAnimator;
     public GameObject grappleGun;
+    public GrapplingRope grapplingRope;
+    public CameraController cameraController;
 
     private void Awake()
     {

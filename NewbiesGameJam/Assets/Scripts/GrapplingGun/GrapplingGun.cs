@@ -7,9 +7,9 @@ public class GrapplingGun : MonoBehaviour
 
     [Header("Layers Settings")]
     [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int grappableLayerNumber;
+    [SerializeField] private int[] grappableLayerNumbers;
     [SerializeField] private LayerMask _playerLayer;
-    [SerializeField] private LayerMask _grappableLayer;
+    [SerializeField] private LayerMask[] _grappableLayers; // when adding a new layer to the array, add the layer index to the int array as well
 
     [Header("Main Camera")]
     public Camera m_camera;
@@ -54,6 +54,9 @@ public class GrapplingGun : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+
+        if (_grappableLayers.Length != grappableLayerNumbers.Length)
+            Debug.LogError("Please check that all grappleable layers are in layer number array and vice versa");
     }
 
     private void Update()
@@ -80,7 +83,8 @@ public class GrapplingGun : MonoBehaviour
                 {
                     Vector2 firePointDistnace = firePoint.position - gunHolder.localPosition;
                     Vector2 targetPos = grapplePoint - firePointDistnace;
-                    gunHolder.position = Vector2.Lerp(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
+                    //gunHolder.position = Vector2.Lerp(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
+                    gunHolder.position = Vector2.LerpUnclamped(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
                 }
             }
         }
@@ -115,40 +119,40 @@ public class GrapplingGun : MonoBehaviour
     void SetGrapplePoint()
     {
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
-        if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayer, ~_playerLayer))
-        {
-            RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayer, ~_playerLayer);
-            if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
-            {
-                if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
-                {
-                    grapplePoint = _hit.point;
-                    grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-                    grappleRope.enabled = true;
-                }
-            }
-        }
-
-        // for (int i = 0; i < _grappableLayers.Length; i++)
+        // if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayer, ~_playerLayer))
         // {
-        //     if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayers[i], ~_playerLayer))
+        //     RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayer, ~_playerLayer);
+        //     if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
         //     {
-        //         RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayers[i], ~_playerLayer);
-        //         for (int j = 0; j < grappableLayerNumbers.Length; j++)
+        //         if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
         //         {
-        //             if (_hit.transform.gameObject.layer == grappableLayerNumbers[j] || grappleToAll)
-        //             {
-        //                 if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
-        //                 {
-        //                     grapplePoint = _hit.point;
-        //                     grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-        //                     grappleRope.enabled = true;
-        //                     break;
-        //                 }
-        //             }
+        //             grapplePoint = _hit.point;
+        //             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
+        //             grappleRope.enabled = true;
         //         }
         //     }
         // }
+
+        for (int i = 0; i < _grappableLayers.Length; i++)
+        {
+            if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayers[i], ~_playerLayer))
+            {
+                RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, _grappableLayers[i], ~_playerLayer);
+                for (int j = 0; j < grappableLayerNumbers.Length; j++)
+                {
+                    if (_hit.transform.gameObject.layer == grappableLayerNumbers[j] || grappleToAll)
+                    {
+                        if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
+                        {
+                            grapplePoint = _hit.point;
+                            grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
+                            grappleRope.enabled = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void Grapple()
