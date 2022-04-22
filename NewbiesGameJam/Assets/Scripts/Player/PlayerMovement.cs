@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canGrabWall;
     private bool _isGrabbingWall;
     private RaycastHit2D _wallHit;
-    private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
+    //private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
 
     [Header ("Dash")]
     [SerializeField] private float _dashPower = 2f;
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         CheckForWall();
-        CheckDash();
+        //CheckDash(); disabled for the time being
         CheckJumpRelease(); // Adjustable jump height
     }
 
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _isGrounded = true;
 
-            _lastWall = null;
+            //_lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
             _canJump = true;
         }
@@ -161,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         _canGrabWall = IsOnWall();
         _isGrabbingWall = false;
 
-        if (_canGrabWall && !IsGrounded() && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
+        if (_canGrabWall && !IsGrounded() /*&& _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>()*/)
         {
             // TODO check if this entire line is really necessary
             _isGrabbingWall = (transform.localScale.x > 0 && _horizontalInput > 0) || (transform.localScale.x < 0 && _horizontalInput < 0);
@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 _isJumping = true;
                 _isFalling = false;
                 _canJump = false;
-                _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
+                //_lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
@@ -232,5 +232,10 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0 , Vector2.down, 0.1f, _groundLayer);
         
         return raycastHit.collider != null;
+    }
+
+    public void Death()
+    {
+        _isInControl = false;
     }
 }

@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public PlayerMovement playerMovement;
+    public PlayerAnimator playerAnimator;
+    public GameObject grappleGun;
 
     private void Awake()
     {
