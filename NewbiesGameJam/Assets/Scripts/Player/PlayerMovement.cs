@@ -233,4 +233,9 @@ public class PlayerMovement : MonoBehaviour
         
         return raycastHit.collider != null;
     }
+
+    public void Death()
+    {
+        _isInControl = false;
+    }
 }

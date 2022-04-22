@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject player;
     public PlayerMovement playerMovement;
+    public PlayerAnimator playerAnimator;
 
     private void Awake()
     {

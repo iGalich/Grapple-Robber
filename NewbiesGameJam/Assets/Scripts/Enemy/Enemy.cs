@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject == _player)
         {
-            Death();
+            GameManager.Instance.playerAnimator.TriggerKick();
+            //Death();
         }
     }
 
