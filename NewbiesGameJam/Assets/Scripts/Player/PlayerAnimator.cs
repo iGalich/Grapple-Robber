@@ -65,6 +65,8 @@ public class PlayerAnimator : MonoBehaviour
     public void Death()
     {
         _checkingAnimations = false;
+        _anim.SetBool(JumpKey, false);
+        _anim.SetBool(FallKey, false);
         _anim.SetTrigger(DeathKey);
     }
 

@@ -7,6 +7,9 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private float _slowdownFactor = 0.05f;
     [SerializeField] private float _slowdownLength = 2f;
 
+    public float SlowdownFactor => _slowdownFactor;
+    public float SlowdownLength => _slowdownLength;
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,7 +23,7 @@ public class TimeManager : MonoBehaviour
         ResetTimeScale();
     }
 
-    private void ResetTimeScale()
+    public void ResetTimeScale()
     {
         Time.timeScale += (1f / _slowdownLength) * Time.unscaledDeltaTime;
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);

@@ -68,7 +68,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _horizontalInput = Input.GetAxis("Horizontal");
 
-        _isInControl = CheckIfInControl();
+        if (!GameManager.Instance.playerHealth.IsDead())
+            _isInControl = CheckIfInControl();
         if (!_isInControl)
         {
             _wallJumpCounter -= Time.deltaTime;
@@ -238,5 +239,6 @@ public class PlayerMovement : MonoBehaviour
     public void Death()
     {
         _isInControl = false;
+        //this.enabled = false;
     }
 }

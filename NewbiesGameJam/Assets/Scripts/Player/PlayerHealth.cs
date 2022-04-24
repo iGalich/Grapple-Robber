@@ -27,11 +27,18 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)) // Testing
+        Testing();
+    }
+
+    private void Testing()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             _grappleGun = Instantiate(_grappleGunPrefab, GameManager.Instance.player.transform.position + new Vector3(0.32f, 0, 0), Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f)));
             _grappleGun.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-_pushValue , _pushValue), Random.Range(-_pushValue , _pushValue)));
         }
+        if (Input.GetKeyDown(KeyCode.F))
+            TakeDamage(1);
     }
 
     public void TakeDamage(int damage)
@@ -55,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
     private void LaunchGrappleGun()
     {
         GameManager.Instance.grappleGun.SetActive(false);
-        GameManager.Instance.player.GetComponent<BoxCollider2D>().enabled = false;
+        //GameManager.Instance.player.GetComponent<BoxCollider2D>().enabled = false;
         _grappleGun = Instantiate(_grappleGunPrefab, GameManager.Instance.player.transform.position + new Vector3(0.32f, 0, 0), Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f)));
         _grappleGun.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-_pushValue , _pushValue), Random.Range(-_pushValue , _pushValue)));
     }
@@ -63,6 +70,9 @@ public class PlayerHealth : MonoBehaviour
     public void AddHealth(int value)
     {
         _currentHealth += value;
+        if (_currentHealth > _startingHealth)
+            _currentHealth = _startingHealth;
+        OnHealthChange.Invoke();
     }
 
     public bool IsFullHealth()
