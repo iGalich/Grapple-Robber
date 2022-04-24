@@ -6,6 +6,7 @@ public class HomingMissile : MonoBehaviour
     [SerializeField] private float _rotateSpeed = 200f;
     [SerializeField] private GameObject _explosionEffect;
     [SerializeField] private int _damage = 1;
+    [SerializeField] private float _rotationLimit = 100f;
     private Rigidbody2D _body;
     private Transform _target;
 
@@ -17,10 +18,13 @@ public class HomingMissile : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_rotationLimit <= 0) return;
+
         Vector2 direction = (Vector2)_target.position - _body.position;
         direction.Normalize();
         float rotateAmount = Vector3.Cross(direction, transform.up).z;
         _body.angularVelocity = -rotateAmount * _rotateSpeed;
+        _rotationLimit -= Mathf.Abs(rotateAmount);
         _body.velocity = transform.up * _speed;
     }
 
