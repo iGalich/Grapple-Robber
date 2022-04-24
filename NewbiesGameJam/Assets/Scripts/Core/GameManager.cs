@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header ("Core")]
-    public CameraController cameraController;
+    public CinemachineShake cinemachineShake;
     public TimeManager timeManager;
 
     [Header ("Player References")]

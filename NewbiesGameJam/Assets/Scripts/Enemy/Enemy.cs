@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header ("References")]
     private GameObject _player;
+
+    [Header ("Shake parameters")]
+    [SerializeField] private float _shakeIntensity = 10f;
+    [SerializeField] private float _shakeTime = 0.5f;
 
     private void Start()
     {
@@ -15,8 +20,8 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance.playerAnimator.TriggerKick();
             //GameManager.Instance.cameraController.CameraShake.StartShake();
-            GameManager.Instance.cameraController.ShakeCamera();
-            TimeManager.Instance.DoSlowmotion();
+            GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+            TimeManager.Instance.DoSlowmotion(_shakeTime);
             //Death();
         }
     }

@@ -212,6 +212,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isInControl)
             _body.velocity = new Vector2(_horizontalInput * _speed, _body.velocity.y);
+        else
+            _body.velocity = new Vector2(0f, _body.velocity.y);
     }
 
     private void FlipSprite()

@@ -17,6 +17,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float _pushValue = 1000f;
     private GameObject _grappleGun;
 
+    [Header ("Shake parameters")]
+    [SerializeField] private float _shakeIntensity = 10f;
+    [SerializeField] private float _shakeTime = 0.5f;
+
     public int StartingHealth => _startingHealth;
     public int CurrentHealth => _currentHealth;
 
@@ -50,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
         if (_currentHealth > 0)
         {
             OnHealthChange.Invoke();
+            GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
         }
         else if (!_isDead)
         {
