@@ -2,13 +2,20 @@ using UnityEngine;
 
 public class HomingMissile : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;
-    [SerializeField] private float _rotateSpeed = 200f;
-    [SerializeField] private GameObject _explosionEffect;
-    [SerializeField] private int _damage = 1;
-    [SerializeField] private float _rotationLimit = 100f;
+    [Header ("References")]
     private Rigidbody2D _body;
     private Transform _target;
+
+    [Header ("Projectile parameters")]
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _rotateSpeed = 200f;
+    [SerializeField] private int _damage = 1;
+    [SerializeField] private float _rotationLimit = 100f;
+    
+    [Header ("Explosion parameters")]
+    [SerializeField] private GameObject _explosionEffect;
+    [SerializeField] private float _shakeIntensity = 10f;
+    [SerializeField] private float _shakeTime = 0.5f;
 
     private void Start()
     {
@@ -33,6 +40,7 @@ public class HomingMissile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
             GameManager.Instance.player.GetComponent<PlayerHealth>().TakeDamage(_damage);
 
+        GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
         Instantiate(_explosionEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
