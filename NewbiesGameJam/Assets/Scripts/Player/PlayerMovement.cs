@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrappling = false;
     private bool _isJumping = false;
     private bool _isFalling = false;
+    private bool _isJumpingFromWall = false;
 
 
     [Header ("Coyote Time")]
@@ -29,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canGrabWall;
     private bool _isGrabbingWall;
     private RaycastHit2D _wallHit;
-    //private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
+    private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
 
     [Header ("Dash")]
     [SerializeField] private float _dashPower = 2f;
@@ -101,8 +102,8 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             _isGrounded = true;
-
-            //_lastWall = null;
+            _isJumpingFromWall = false;
+            _lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
             _canJump = true;
         }
@@ -163,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         _canGrabWall = IsOnWall();
         _isGrabbingWall = false;
 
-        if (_canGrabWall && !IsGrounded() /*&& _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>()*/)
+        if (_canGrabWall && !IsGrounded() && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
         {
             // TODO check if this entire line is really necessary
             _isGrabbingWall = (transform.localScale.x > 0 && _horizontalInput > 0) || (transform.localScale.x < 0 && _horizontalInput < 0);
@@ -173,6 +174,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _canJump = true;
             _isJumping = false;
+            _isJumpingFromWall = false;
             _body.gravityScale = 0;
             _body.velocity = Vector2.zero;
             _coyoteCounter = _coyoteTime; // Coyote time is reset so player can have a small frame to jump after leaving wall
@@ -180,13 +182,15 @@ public class PlayerMovement : MonoBehaviour
             // On jump from wall, control is taken away for a short moment
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                _isJumpingFromWall = true;
                 _isJumping = true;
                 _isFalling = false;
                 _canJump = false;
-                //_lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
+                _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
+                Debug.Log(-Mathf.Sign(transform.localScale.x) * _speed);
                 _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed, _jumpPower); // send the player away from the wall
                 _isGrabbingWall = false;
             }
@@ -212,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isInControl)
             _body.velocity = new Vector2(_horizontalInput * _speed, _body.velocity.y);
-        else
+        else if (!_isJumpingFromWall)
             _body.velocity = new Vector2(0f, _body.velocity.y);
     }
 
