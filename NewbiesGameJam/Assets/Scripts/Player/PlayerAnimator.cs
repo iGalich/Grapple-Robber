@@ -26,7 +26,7 @@ public class PlayerAnimator : MonoBehaviour
         if (_checkingAnimations)
             UpdatePlayerAnimation();
         else
-            _checkingAnimations = _player.IsGrounded();
+            _checkingAnimations = _player.IsGrounded;
     }
 
     private void UpdatePlayerAnimation()
@@ -36,7 +36,7 @@ public class PlayerAnimator : MonoBehaviour
         _anim.SetBool(RunKey, _player.HorizontalInput != 0);
         _anim.SetBool(FallKey, _player.IsFalling);
         _anim.SetBool(JumpKey, _player.IsJumping);
-        _anim.SetBool(GroundedKey, _player.IsGrounded());
+        _anim.SetBool(GroundedKey, _player.IsGrounded);
         _anim.SetBool(WallGrabKey, _player.IsGrabbingWall);
     }
 
@@ -70,7 +70,7 @@ public class PlayerAnimator : MonoBehaviour
         _anim.SetTrigger(DeathKey);
     }
 
-    #region Animation Leys
+    #region Animation Keys
 
     private static readonly int GroundedKey = Animator.StringToHash("Grounded");
     private static readonly int RunKey = Animator.StringToHash("Running");

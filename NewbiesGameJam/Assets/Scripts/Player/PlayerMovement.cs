@@ -6,12 +6,14 @@ public class PlayerMovement : MonoBehaviour
     [Header ("Movement Parameters")]
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpPower = 20f;
+    [SerializeField] private float _adjustableFallJump = 0.5f;
+    [SerializeField] private Transform _groundCheckCollider;
     private float _horizontalInput;
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
 
-    private bool _isGrounded; // used for debugging only
+    private bool _isGrounded = false;
     private bool _isGrappling = false;
     private bool _isJumping = false;
     private bool _isFalling = false;
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsJumping => _isJumping;
     public bool IsFalling => _isFalling;
     public bool IsGrabbingWall => _isGrabbingWall;
+    public bool IsGrounded => _isGrounded;
 
     private void Awake() 
     {
@@ -98,10 +101,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() 
     {
         BasicMovement(_horizontalInput);
-
-        if (IsGrounded())
+        _isGrounded = CheckGround();
+        _canJump = false;
+        if (_isGrounded)
         {
-            _isGrounded = true;
             _isJumpingFromWall = false;
             _lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
@@ -109,8 +112,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            _isGrounded = false;
-
+            if (_coyoteCounter > 0)
+                _canJump = true;
             _coyoteCounter -= Time.deltaTime;
         }
     }
@@ -126,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0)
         {
-            _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * 0.5f);
+            _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * _adjustableFallJump);
         }
     }
 
@@ -164,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
         _canGrabWall = IsOnWall();
         _isGrabbingWall = false;
 
-        if (_canGrabWall && !IsGrounded() && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
+        if (_canGrabWall && !_isGrounded && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
         {
             // TODO check if this entire line is really necessary
             _isGrabbingWall = (transform.localScale.x > 0 && _horizontalInput > 0) || (transform.localScale.x < 0 && _horizontalInput < 0);
@@ -190,7 +193,6 @@ public class PlayerMovement : MonoBehaviour
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
-                Debug.Log(-Mathf.Sign(transform.localScale.x) * _speed);
                 _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed, _jumpPower); // send the player away from the wall
                 _isGrabbingWall = false;
             }
@@ -203,10 +205,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (_isInControl && _canJump && (IsGrounded() || _coyoteCounter >= 0))
+        if (_isInControl && _canJump && (_isGrounded || _coyoteCounter >= 0))
         {
-            _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _canJump = false;
+            _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _isJumping = true;
             _isFalling = false;
         }
@@ -235,11 +237,17 @@ public class PlayerMovement : MonoBehaviour
         return _wallHit;
     }
 
-    public bool IsGrounded()
+    private bool CheckGround()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0 , Vector2.down, 0.1f, _groundLayer);
-        
-        return raycastHit.collider != null;
+        _isGrounded = false;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundCheckCollider.position, 0.1f, _groundLayer);
+        return colliders.Length > 0;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+         Gizmos.DrawWireSphere(_groundCheckCollider.position, 0.1f);
     }
 
     public void Death()
