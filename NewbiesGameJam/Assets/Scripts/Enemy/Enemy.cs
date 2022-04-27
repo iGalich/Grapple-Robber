@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject[] _projectiles;
 
     [Header ("Animations")]
+    [SerializeField] private float _fadeSpeed = 0.5f;
     private Animator _anim;
 
     public Transform Target { get => _target; set => _target = value; }
@@ -46,7 +48,8 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.playerAnimator.TriggerKick();
         GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
         TimeManager.Instance.DoSlowmotion(_shakeTime);
-        FunctionTimer.Create(() => Death(), _shakeTime * 0.5f);
+        Death();
+        //FunctionTimer.Create(() => Death(), _shakeTime * 0.5f);
     }
 
     private void FacePlayer()
@@ -96,7 +99,26 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
-        Debug.Log(this + " is dead");
+        // Debug.Log(this + " is dead");
+        // Destroy(gameObject);
+        _anim.SetTrigger(DeathKey);
+    }
+
+    private void StartFadeAway()
+    {
+        StartCoroutine(FadeAway());
+    }
+
+    private IEnumerator FadeAway()
+    {
+        while (GetComponent<Renderer>().material.color.a > 0)
+        {
+            Color objectColor = GetComponent<Renderer>().material.color;
+            float fadeAmount = objectColor.a - _fadeSpeed * Time.deltaTime;
+            objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fadeAmount);
+            GetComponent<Renderer>().material.color = objectColor;
+            yield return null;
+        }
         Destroy(gameObject);
     }
 
@@ -104,6 +126,7 @@ public class Enemy : MonoBehaviour
 
     private static readonly int ReadyToFireKey = Animator.StringToHash("ReadyToFire");
     private static readonly int FireKey = Animator.StringToHash("Fire");
+    private static readonly int DeathKey = Animator.StringToHash("Death");
 
     #endregion
 }

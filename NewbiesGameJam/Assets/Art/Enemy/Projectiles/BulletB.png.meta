@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46342066c2fd0bc45a156685116b0b78
+guid: 26ba45e579163d84da2c4b566156d76c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemyB_ReadyToFire_R_0
+      name: BulletB_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32ae54a9c13194946818c200ed00f1fe
-      internalID: 1793910427
+      spriteID: bdeebfe6373f865458d58cc92cad8275
+      internalID: 815361895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemyB_ReadyToFire_R_1
+      name: BulletB_1
       rect:
         serializedVersion: 2
         x: 32
@@ -163,71 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2bd72a2e923ee044a949ad372e971a5
-      internalID: -916952017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemyB_ReadyToFire_R_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29c5d1c170ba5104593fd19bb7ba5292
-      internalID: 1971109271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemyB_ReadyToFire_R_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bed53c81c7c2ab04cab0e729a48cd0f6
-      internalID: 2029211861
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemyB_ReadyToFire_R_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74e5d4f8e2c09164fb7a6d37265dbb80
-      internalID: -1743957932
+      spriteID: c6f1fe7a152a8d44584f86812adb6e93
+      internalID: 208033662
       vertices: []
       indices: 
       edges: []
@@ -243,11 +180,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      enemyB_ReadyToFire_R_4: -1743957932
-      enemyB_ReadyToFire_R_2: 1971109271
-      enemyB_ReadyToFire_R_0: 1793910427
-      enemyB_ReadyToFire_R_3: 2029211861
-      enemyB_ReadyToFire_R_1: -916952017
+      BulletB_0: 815361895
+      BulletB_1: 208033662
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
