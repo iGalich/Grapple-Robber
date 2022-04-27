@@ -83,9 +83,11 @@ public class HomingMissile : MonoBehaviour
 
     private void CalculateAngle()
     {
-        var deltaX = transform.position.x - GameManager.Instance.player.transform.position.x;
-        var deltaY = transform.position.y - GameManager.Instance.player.transform.position.y;
-        var theta = Mathf.Tan(deltaY / deltaX);
-        transform.rotation = new Quaternion(0f, 0f, Mathf.Sin(theta * 0.5f), Mathf.Cos(theta * 0.5f));
+        Vector3 offset = GameManager.Instance.player.transform.position - transform.position;
+        //transform.rotation = Quaternion.LookRotation(Vector3.forward, offset);
+
+       Quaternion rotation = Quaternion.LookRotation(Vector3.forward, offset);
+
+       transform.rotation = rotation * Quaternion.Euler(0f, 0f, 90f); 
     }
 }

@@ -61,7 +61,11 @@ public class Enemy : MonoBehaviour
 
     private void AttackPlayer()
     {
-        if (_target == null) return;
+        if (_target == null)
+        {
+            _anim.SetBool(ReadyToFireKey, false);
+            return;
+        }
 
         _anim.SetBool(ReadyToFireKey, true);
     }
