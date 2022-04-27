@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d19a0f3531e06004e86e36bf2f8b0aac
+guid: 6ba2452500f2b8744abc0b9acdce9517
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Robber_Damage_Effect_0
+      name: enemyB_Death_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 399c3dd27db776643999a5f0ddf08aa8
-      internalID: 1691087818
+      spriteID: abe325f8b5706c342ae082fc5d6fd286
+      internalID: 1536989598
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Robber_Damage_Effect_1
+      name: enemyB_Death_1
       rect:
         serializedVersion: 2
         x: 32
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94f096f94a0783d4d82c677efa0aa74a
-      internalID: 868629183
+      spriteID: 56d1689de0923ad4da8e2d2c4688ee6a
+      internalID: 860298770
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Robber_Damage_Effect_2
+      name: enemyB_Death_2
       rect:
         serializedVersion: 2
         x: 64
@@ -184,8 +184,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34623c52cc20caa4e849052cd570713d
-      internalID: -1472258192
+      spriteID: c9553e1082fa38541adefb164da54e7d
+      internalID: -1502114299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyB_Death_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9961685d1d5fddb4385edaf3834f26cc
+      internalID: 2035586275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyB_Death_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da85b684b3b0ce14ba6850d3e1c6621f
+      internalID: 1410460531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyB_Death_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56bee1ed924b627498f90c19b9976db2
+      internalID: -1095298570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyB_Death_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311ef75fb36642c4d8a2d664b917d18a
+      internalID: -1088459514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyB_Death_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05289955ec880284dafeae7c3ed2421d
+      internalID: -1777417076
       vertices: []
       indices: 
       edges: []
@@ -201,9 +306,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Robber_Damage_Effect_1: 868629183
-      Robber_Damage_Effect_2: -1472258192
-      Robber_Damage_Effect_0: 1691087818
+      enemyB_Death_1: 860298770
+      enemyB_Death_5: -1095298570
+      enemyB_Death_0: 1536989598
+      enemyB_Death_3: 2035586275
+      enemyB_Death_6: -1088459514
+      enemyB_Death_2: -1502114299
+      enemyB_Death_7: -1777417076
+      enemyB_Death_4: 1410460531
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

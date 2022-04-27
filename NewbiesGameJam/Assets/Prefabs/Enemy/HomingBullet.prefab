@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 9069816239827890197}
   - component: {fileID: 9069816239827890196}
   - component: {fileID: 9069816239827890192}
+  - component: {fileID: 420781505}
   m_Layer: 8
   m_Name: HomingBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9069816239827890195
 Transform:
   m_ObjectHideFlags: 0
@@ -27,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9069816239827890199}
-  m_LocalRotation: {x: -0, y: -0, z: -0.9944951, w: 0.10478384}
+  m_LocalRotation: {x: 0, y: 0, z: -0.99449545, w: 0.10478032}
   m_LocalPosition: {x: 23.445553, y: 14.698577, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 0.32, y: 0.32, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d7094718bdac022428dd29244922d06b, type: 3}
-  m_Color: {r: 0.9811321, g: 0.90747416, b: 0.0509078, a: 1}
+  m_Sprite: {fileID: 815361895, guid: 26ba45e579163d84da2c4b566156d76c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -122,9 +123,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 15
   _rotateSpeed: 200
-  _explosionEffect: {fileID: 5494339837314741688, guid: 58b9ddd2a62d53a4995c306107f89dfe, type: 3}
   _damage: 1
   _rotationLimit: 150
+  _isHoming: 0
+  _lifetime: 5
+  _explosionEffectPrefab: {fileID: 1610671496326706337, guid: df3b05b55ec5c454c867e91adba15754, type: 3}
+  _shakeIntensity: 10
+  _shakeTime: 0.5
+  _doShake: 0
 --- !u!58 &9069816239827890192
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -132,7 +138,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9069816239827890199}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -141,3 +147,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.115
+--- !u!95 &420781505
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069816239827890199}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9f9f269f9a5af6419d04b211a10b61d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
