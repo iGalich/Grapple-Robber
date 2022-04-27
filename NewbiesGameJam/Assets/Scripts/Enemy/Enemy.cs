@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [Header ("Attack parameters")]
     [SerializeField] private float _attackCooldown = 2f;
     [SerializeField] private Transform _firePoint;
+    [SerializeField] private bool _dummy = false;
     private float _lastAttack;
 
     [Header ("Projectile Pool")]
@@ -39,6 +40,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (_dummy) return;
+        
         FacePlayer();
         AttackPlayer();
     }

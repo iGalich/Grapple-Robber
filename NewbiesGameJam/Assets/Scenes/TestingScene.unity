@@ -845,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HomingBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 9069816239827890199, guid: 4fcda773905d9bf4998a84d020c0a6ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fcda773905d9bf4998a84d020c0a6ec, type: 3}
 --- !u!4 &257548256 stripped
@@ -2431,6 +2435,7 @@ GameObject:
   - component: {fileID: 980183169}
   - component: {fileID: 980183171}
   - component: {fileID: 980183170}
+  - component: {fileID: 980183172}
   m_Layer: 2
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -2504,6 +2509,18 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1465190308}
+--- !u!114 &980183172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980183168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825664ac7cfc8104aa71c1354fea667e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &982670125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7092,11 +7109,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7930651914765688611, guid: 58dd4032c00391940bb30a6cff33d0b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.51
+      value: 23.26
       objectReference: {fileID: 0}
     - target: {fileID: 7930651914765688611, guid: 58dd4032c00391940bb30a6cff33d0b6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.69
+      value: -1.737
       objectReference: {fileID: 0}
     - target: {fileID: 7930651914765688611, guid: 58dd4032c00391940bb30a6cff33d0b6, type: 3}
       propertyPath: m_LocalPosition.z

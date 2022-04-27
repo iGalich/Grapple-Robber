@@ -211,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _isJumping = true;
             _isFalling = false;
+            _coyoteCounter = 0f;
         }
     }
     
@@ -240,14 +241,14 @@ public class PlayerMovement : MonoBehaviour
     private bool CheckGround()
     {
         _isGrounded = false;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundCheckCollider.position, 0.1f, _groundLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundCheckCollider.position, 0.05f, _groundLayer);
         return colliders.Length > 0;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-         Gizmos.DrawWireSphere(_groundCheckCollider.position, 0.1f);
+         Gizmos.DrawWireSphere(_groundCheckCollider.position, 0.05f);
     }
 
     public void Death()

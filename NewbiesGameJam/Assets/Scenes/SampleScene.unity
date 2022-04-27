@@ -849,6 +849,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _jumpPower: 35
+  _adjustableFallJump: 0.5
+  _groundCheckCollider: {fileID: 0}
   _coyoteTime: 0.25
   _wallDistance: 0.54
   _wallJumpTime: 0.28
@@ -1010,10 +1012,16 @@ MonoBehaviour:
         m_CallState: 2
   _startingHealth: 6
   _currentHealth: 0
+  _iFramesDuration: 1
+  _spriteRenderer: {fileID: 0}
+  _grappleSprite: {fileID: 0}
+  _iFramesDeltaTime: 0.15
   _grappleGunPrefab: {fileID: 3430431452305498229, guid: 80092f88fa7ea254a8c9d8c5eaf61846, type: 3}
   _pushValue: 300
+  _healthBar: {fileID: 0}
   _shakeIntensity: 10
   _shakeTime: 0.5
+  _hitParticles: {fileID: 0}
 --- !u!1 &938862840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1466,7 @@ Transform:
   m_GameObject: {fileID: 1139406984}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1028502069}
@@ -1543,7 +1551,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -459287465
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e2ef441e1fffac4459c1fca89d28f79e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2073,7 +2081,7 @@ Transform:
   m_GameObject: {fileID: 1544204881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 738003780}
@@ -2118,7 +2126,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -459287465
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -9112814, guid: ed75616fe297b6b4682b14a6a6fda0b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

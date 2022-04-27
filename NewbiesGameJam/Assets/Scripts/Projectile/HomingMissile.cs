@@ -13,6 +13,7 @@ public class HomingMissile : MonoBehaviour
     [SerializeField] private float _rotationLimit = 100f;
     [SerializeField] private bool _isHoming;
     [SerializeField] private float _lifetime = 5f;
+    private float _initialRotationLimit;
     private float _lifetimeCount = float.NegativeInfinity;
     private bool _gotDirection = false;
     
@@ -27,6 +28,7 @@ public class HomingMissile : MonoBehaviour
     {
         _body = GetComponent<Rigidbody2D>();
         _target = GameManager.Instance.player.transform;
+        _initialRotationLimit = _rotationLimit;
     }
 
     private void Update()
@@ -45,9 +47,9 @@ public class HomingMissile : MonoBehaviour
             Vector2 direction = (Vector2)_target.position - _body.position;
             direction.Normalize();
             float rotateAmount = Vector3.Cross(direction, transform.up).z;
-            _body.angularVelocity = -rotateAmount * _rotateSpeed * Time.fixedDeltaTime;
+            _body.angularVelocity = -rotateAmount * _rotateSpeed;
             _rotationLimit -= Mathf.Abs(rotateAmount);
-            _body.velocity = transform.up * _speed * Time.fixedDeltaTime;
+            _body.velocity = transform.up * _speed;
         }
         else if (!_gotDirection)
         {
@@ -70,6 +72,7 @@ public class HomingMissile : MonoBehaviour
         _explosionParticles = Instantiate(_explosionEffectPrefab, transform.position, transform.rotation);
         gameObject.SetActive(false);
         GetComponent<CircleCollider2D>().enabled = false;
+        _rotationLimit = _initialRotationLimit;
         Destroy(_explosionParticles, _explosionParticles.GetComponent<ParticleSystem>().main.duration);
     }
 
@@ -78,13 +81,14 @@ public class HomingMissile : MonoBehaviour
         _lifetimeCount = 0f;
         GetComponent<CircleCollider2D>().enabled = true;
         _gotDirection = false;
-        CalculateAngle();
+        if (!_isHoming)
+            CalculateAngle();
     }
 
     private void CalculateAngle()
     {
         Vector3 offset = GameManager.Instance.player.transform.position - transform.position;
-        //transform.rotation = Quaternion.LookRotation(Vector3.forward, offset);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, offset);
 
        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, offset);
 
