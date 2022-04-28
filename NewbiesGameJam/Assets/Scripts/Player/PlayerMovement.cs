@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canGrabWall;
     private bool _isGrabbingWall;
     private RaycastHit2D _wallHit;
-    private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
+    //private BoxCollider2D _lastWall; // Used to keep track of the last wall that was jumped off, so you can't wall jump up the same wall
 
     [Header ("Dash")]
     [SerializeField] private float _dashPower = 2f;
@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         if (_isGrounded)
         {
             _isJumpingFromWall = false;
-            _lastWall = null;
+            //_lastWall = null;
             _coyoteCounter = _coyoteTime; // Reset coyote counter
             _canJump = true;
         }
@@ -122,7 +122,11 @@ public class PlayerMovement : MonoBehaviour
     private void GetInput()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (_isGrounded)
+                _coyoteCounter = 0f;
             Jump();
+        }
         _isGrappling = Input.GetMouseButton(0);
     }
 
@@ -168,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
         _canGrabWall = IsOnWall();
         _isGrabbingWall = false;
 
-        if (_canGrabWall && !_isGrounded && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
+        if (_canGrabWall && !_isGrounded /*&& _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>()*/)
         {
             // TODO check if this entire line is really necessary
             _isGrabbingWall = (transform.localScale.x > 0 && _horizontalInput > 0) || (transform.localScale.x < 0 && _horizontalInput < 0);
@@ -190,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
                 _isJumping = true;
                 _isFalling = false;
                 _canJump = false;
-                _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
+                //_lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
@@ -208,11 +212,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isInControl && _canJump && (_isGrounded || _coyoteCounter >= 0))
         {
+            Debug.Log("here");
+            _coyoteCounter = 0f;
             _canJump = false;
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
             _isJumping = true;
             _isFalling = false;
-            _coyoteCounter = 0f;
         }
     }
     
