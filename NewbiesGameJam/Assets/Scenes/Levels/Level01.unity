@@ -1397,6 +1397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HomingBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 9069816239827890199, guid: 4fcda773905d9bf4998a84d020c0a6ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fcda773905d9bf4998a84d020c0a6ec, type: 3}
 --- !u!1 &508758762 stripped

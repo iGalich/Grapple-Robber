@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _shakeTime = 0.5f;
 
     [Header ("Attack parameters")]
+    [SerializeField] private int _meleeDamage = 1;
     [SerializeField] private float _attackCooldown = 2f;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private bool _dummy = false;
@@ -48,10 +49,17 @@ public class Enemy : MonoBehaviour
 
     public void GotHit()
     {
-        GameManager.Instance.playerAnimator.TriggerKick();
-        GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
-        TimeManager.Instance.DoSlowmotion(_shakeTime);
-        Death();
+        if (_player.GetComponent<PlayerMovement>().IsGrappling)
+        {
+            GameManager.Instance.playerAnimator.TriggerKick();
+            GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+            TimeManager.Instance.DoSlowmotion(_shakeTime);
+            Death();
+        }
+        else
+        {
+            _player.GetComponent<PlayerHealth>().TakeDamage(_meleeDamage);
+        }
         //FunctionTimer.Create(() => Death(), _shakeTime * 0.5f);
     }
 

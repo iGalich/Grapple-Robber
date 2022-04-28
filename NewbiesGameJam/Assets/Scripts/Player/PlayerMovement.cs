@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsFalling => _isFalling;
     public bool IsGrabbingWall => _isGrabbingWall;
     public bool IsGrounded => _isGrounded;
+    public bool IsGrappling => _isGrappling;
 
     private void Awake() 
     {

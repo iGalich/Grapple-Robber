@@ -3,6 +3,7 @@ using Cinemachine;
 
 public class CinemachineOffset : MonoBehaviour
 {
+    [SerializeField] private float _camSpeed = 1f;
     private Rigidbody2D _playerBody;
     private Transform _player;
     private CinemachineVirtualCamera _vCam;
@@ -24,6 +25,8 @@ public class CinemachineOffset : MonoBehaviour
     {
         float offsetX = _player.localScale.x;
         float offsetY = (_playerBody.velocity.y >= 0f) ? 1 : -1;
-        _camTransposer.m_TrackedObjectOffset = new Vector3(offsetX, offsetY, 0f);
+
+        _camTransposer.m_TrackedObjectOffset = Vector3.Lerp(_camTransposer.m_TrackedObjectOffset, new Vector3(offsetX, offsetY, 0f), _camSpeed * Time.deltaTime);
+        //_camTransposer.m_TrackedObjectOffset = new Vector3(offsetX, offsetY, 0f);
     }
 }

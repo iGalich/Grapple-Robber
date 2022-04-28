@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af1657d50fc237b4eb42dda017962664
+guid: 028a71264b50a294ba19b76cc1af372c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BOSS_Walk_0
+      name: Missle_Appear_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +142,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 126e3af28fc7baf40b733d481db77d54
-      internalID: -1935557828
+      spriteID: aa98f56625309624ca3eba924c3f4755
+      internalID: -422488536
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BOSS_Walk_1
+      name: Missle_Appear_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f91d71679f0a34a988f63b30e3a254
+      internalID: -1595351471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_2
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +184,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78c411c0b4d8abc4da51500aeeea48b6
-      internalID: -1657756617
+      spriteID: fc53d929ce83035409f8990c7c1c51e5
+      internalID: 447909840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BOSS_Walk_2
+      name: Missle_Appear_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a182e77a44a7434c86b8480b78cb051
+      internalID: 1068165544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_4
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +226,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28145397d995f884c9670a65bbadee08
-      internalID: -1413220448
+      spriteID: 3345285f690978b478be2b249eca66e5
+      internalID: 416098027
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BOSS_Walk_3
+      name: Missle_Appear_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d45dcbc9169dd042a48f083ed42a8dd
+      internalID: 954954816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_6
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +268,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 375d028e1a59af44d89c7e24e70a04c4
-      internalID: 1814528681
+      spriteID: 04184f883b2a4fe45a21df1fbb19704c
+      internalID: 824357233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BOSS_Walk_4
+      name: Missle_Appear_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f21008442df48874f83e68b93e473441
+      internalID: -238558679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_8
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,20 +310,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8f9285fdc58c8649a3e2743ad44f2cc
-      internalID: 2117340670
+      spriteID: 1a65927da35c35b469d905290d2b94a4
+      internalID: -459380535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BOSS_Walk_5
+      name: Missle_Appear_9
       rect:
         serializedVersion: 2
-        x: 320
+        x: 288
         y: 0
-        width: 64
-        height: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,8 +331,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 10a1d4391ca5e104dab3b9999955d5f1
-      internalID: 169679268
+      spriteID: 98a1347121759334886989208e90a46a
+      internalID: -640345857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_10
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdfe1fd70b932034ba4688071ff8add6
+      internalID: 1874666957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_11
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9db91283c5dadc4a830e8f105875847
+      internalID: -546481026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3b1ea220534b5d4cbc80f0b69552124
+      internalID: 1035913676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Missle_Appear_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f45ab17c1120ab0419c6fded1c789ca0
+      internalID: 1911854078
       vertices: []
       indices: 
       edges: []
@@ -264,12 +432,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BOSS_Walk_1: -1657756617
-      BOSS_Walk_5: 169679268
-      BOSS_Walk_2: -1413220448
-      BOSS_Walk_4: 2117340670
-      BOSS_Walk_3: 1814528681
-      BOSS_Walk_0: -1935557828
+      Missle_Appear_12: 1035913676
+      Missle_Appear_13: 1911854078
+      Missle_Appear_9: -640345857
+      Missle_Appear_6: 824357233
+      Missle_Appear_7: -238558679
+      Missle_Appear_8: -459380535
+      Missle_Appear_11: -546481026
+      Missle_Appear_0: -422488536
+      Missle_Appear_2: 447909840
+      Missle_Appear_3: 1068165544
+      Missle_Appear_5: 954954816
+      Missle_Appear_4: 416098027
+      Missle_Appear_1: -1595351471
+      Missle_Appear_10: 1874666957
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

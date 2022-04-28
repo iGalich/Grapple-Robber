@@ -284,6 +284,7 @@ MonoBehaviour:
   _shakeTime: 0.5
   _attackCooldown: 2
   _firePoint: {fileID: 7096823268537554627}
+  _dummy: 0
   _projectiles:
   - {fileID: 0}
   - {fileID: 0}
