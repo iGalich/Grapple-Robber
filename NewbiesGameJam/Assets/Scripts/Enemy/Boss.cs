@@ -12,7 +12,11 @@ public class Boss : MonoBehaviour
     private Transform _player;
     private Animator _anim;
 
-    [Header ("Boss Parameters")]
+    [Header ("Health")]
+    [SerializeField] private int _startHealth = 100;
+    [SerializeField] private int _currHealth;
+
+    [Header ("Movement Parameters")]
     [SerializeField] private float _speed = 2f;
     [SerializeField] private Transform _leftBound;
     [SerializeField] private Transform _rightBound;
@@ -31,9 +35,15 @@ public class Boss : MonoBehaviour
 
     [Header ("Missile")]
     [SerializeField] private Transform _firePoint;
+    [SerializeField] private GameObject[] _missiles;
+    [SerializeField] private Animator _missilePointAnim;
 
     [Header ("Slash")]
     [SerializeField] private BoxCollider2D _slashCollider;
+
+    [Header ("Slam")]
+    [SerializeField] private GameObject _shockwavePrefab;
+    [SerializeField] private Transform _slamPoint;
 
     private void Awake()
     {
@@ -48,6 +58,7 @@ public class Boss : MonoBehaviour
         _playerObject = GameManager.Instance.player;
         _playerMovement = GameManager.Instance.playerMovement;
         _playerHealth = GameManager.Instance.playerHealth;
+        _currHealth = _startHealth;
     }
 
     private void Update()
@@ -65,6 +76,7 @@ public class Boss : MonoBehaviour
                 GameManager.Instance.playerAnimator.TriggerKick();
                 GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
                 TimeManager.Instance.DoSlowmotion(_shakeTime);
+                _currHealth--;
             }
             else
             {
@@ -90,7 +102,6 @@ public class Boss : MonoBehaviour
         } while (ability == _lastAbility);
         Debug.Log(ability);
         _lastAbility = ability;
-        ability = 0;
 
         switch (ability)
         {
@@ -111,17 +122,40 @@ public class Boss : MonoBehaviour
         FacePlayer(true);
         _anim.SetTrigger(SlashKey);
         _lastState = Time.time;
-        _inAction = false;
+        FunctionTimer.Create(() => _inAction = false, _stateCooldown);
     }
 
     private void Missile()
     {
-
+        _missilePointAnim.SetTrigger(MissileKey);
     }
 
     private void Slam()
     {
+        FacePlayer(true);
+        _anim.SetTrigger(SlamKey);
+        _lastState = Time.time;
+        //Instantiate(_shockwavePrefab, _slamPoint.position, Quaternion.identity);
+        FunctionTimer.Create(() => _inAction = false, _stateCooldown);
+    }
 
+    public void GetMissile()
+    {
+        int index = FindProjectile();
+        _lastState = Time.time;
+        _missiles[index].transform.position = _firePoint.position;
+        _missiles[index].SetActive(true);
+        FunctionTimer.Create(() => _inAction = false, _stateCooldown);
+    }
+
+    private int FindProjectile()
+    {
+        for (int i = 0; i < _missiles.Length; i++)
+        {
+            if (!_missiles[i].activeInHierarchy)
+                return i;
+        }
+        return 0;
     }
 
     private void SwitchSlashHitBox()
@@ -175,6 +209,8 @@ public class Boss : MonoBehaviour
 
     private static readonly int WalkKey = Animator.StringToHash("Walking");
     private static readonly int SlashKey = Animator.StringToHash("Slashing");
+    private static readonly int MissileKey = Animator.StringToHash("Missile");
+    private static readonly int SlamKey = Animator.StringToHash("Slamming");
 
     #endregion
 }

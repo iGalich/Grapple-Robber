@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4633206662395784668
 Transform:
   m_ObjectHideFlags: 0
@@ -121,12 +121,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe4d2900f57e154a9edeb163e6661ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 2
   _rotateSpeed: 200
   _damage: 1
   _rotationLimit: Infinity
   _isHoming: 1
-  _lifetime: 5
+  _lifetime: Infinity
   _explosionEffectPrefab: {fileID: 0}
   _shakeIntensity: 10
   _shakeTime: 0.5
@@ -138,15 +138,15 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4633206662395784664}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0875026, y: 0.0030173454}
   serializedVersion: 2
-  m_Radius: 0.115
+  m_Radius: 0.20250353
 --- !u!95 &1775361026
 Animator:
   serializedVersion: 4

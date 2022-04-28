@@ -61,7 +61,9 @@ public class HomingMissile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Range") return;
+        if (other.name == "Range" || other.name == "LevelBounds" || other.name == "Boss") return;
+
+        Debug.Log(other.name);
         
         if (other.gameObject.CompareTag("Player"))
             GameManager.Instance.player.GetComponent<PlayerHealth>().TakeDamage(_damage);
@@ -81,7 +83,7 @@ public class HomingMissile : MonoBehaviour
         _lifetimeCount = 0f;
         GetComponent<CircleCollider2D>().enabled = true;
         _gotDirection = false;
-        if (!_isHoming)
+        //if (!_isHoming)
             CalculateAngle();
     }
 

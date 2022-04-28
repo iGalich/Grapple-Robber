@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: ArchwayLeft
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 321997807, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: -1237114122, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: -1628506664, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: 997894329, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: -853241006, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: 293757247, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  - {fileID: 1788222812, guid: 104678605c09c564b9d3208a71b45ae8, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
