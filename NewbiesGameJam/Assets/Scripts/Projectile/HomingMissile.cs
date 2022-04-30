@@ -83,7 +83,7 @@ public class HomingMissile : MonoBehaviour
         _lifetimeCount = 0f;
         GetComponent<CircleCollider2D>().enabled = true;
         _gotDirection = false;
-        //if (!_isHoming)
+        if (!_isHoming)
             CalculateAngle();
     }
 
