@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Boss : MonoBehaviour
     [Header ("Health")]
     [SerializeField] private int _startHealth = 100;
     [SerializeField] private int _currHealth;
+    [SerializeField] private Image _healthBarFront;
+    [SerializeField] private GameObject _healthBar;
 
     [Header ("Movement Parameters")]
     [SerializeField] private float _speed = 2f;
@@ -31,7 +34,7 @@ public class Boss : MonoBehaviour
     private float _lastState = Mathf.NegativeInfinity;
     private bool _inAction = false;
     private int _lastAbility = -1;
-    //private bool _inAttackAnimation = false;
+    private bool _inAttackAnimation = false;
 
     [Header ("Missile")]
     [SerializeField] private Transform _firePoint;
@@ -42,8 +45,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private BoxCollider2D _slashCollider;
 
     [Header ("Slam")]
-    [SerializeField] private GameObject _shockwavePrefab;
-    [SerializeField] private Transform _slamPoint;
+    [SerializeField] private GameObject _slamPoint;
 
     private void Awake()
     {
@@ -65,22 +67,37 @@ public class Boss : MonoBehaviour
     {
         FacePlayer();
         DecideState();
+        SyncHealth();
+    }
+
+    private void SyncHealth()
+    {
+        float healthRatio = (float)_currHealth / (float)_startHealth;
+        _healthBarFront.fillAmount = Mathf.Lerp(_healthBarFront.fillAmount, healthRatio, Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject == _playerObject)
         {
-            if (_playerMovement.IsGrappling)
+            if (_inAttackAnimation)
+            {
+                _playerHealth.TakeDamage(_damage);
+                GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+            }
+            else if (_playerMovement.IsGrappling)
             {
                 GameManager.Instance.playerAnimator.TriggerKick();
                 GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
                 TimeManager.Instance.DoSlowmotion(_shakeTime);
-                _currHealth--;
+                // Player does extra damage when he is low on health
+                _currHealth -= _playerHealth.StartingHealth - _playerHealth.CurrentHealth + 1;
+                iTween.ShakePosition(_healthBar, Vector3.one * _shakeIntensity, _shakeTime);
             }
             else
             {
                 _playerHealth.TakeDamage(_damage);
+                GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
             }
         }
     }
@@ -125,6 +142,11 @@ public class Boss : MonoBehaviour
         FunctionTimer.Create(() => _inAction = false, _stateCooldown);
     }
 
+    private void AttackAnimation()
+    {
+        _inAttackAnimation = !_inAttackAnimation;
+    }
+
     private void Missile()
     {
         _missilePointAnim.SetTrigger(MissileKey);
@@ -137,6 +159,11 @@ public class Boss : MonoBehaviour
         _lastState = Time.time;
         //Instantiate(_shockwavePrefab, _slamPoint.position, Quaternion.identity);
         FunctionTimer.Create(() => _inAction = false, _stateCooldown);
+    }
+
+    private void ActivateShockwave()
+    {
+        _slamPoint.SetActive(true);
     }
 
     public void GetMissile()

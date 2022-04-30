@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int _startingHealth = 6;
     [SerializeField] private int _currentHealth; // serialized for testing purposes
     private bool _isDead = false;
+    private bool _graceHit = true;
 
     [Header ("IFrames")]
     [SerializeField] private float _iFramesDuration = 1f;
@@ -69,6 +70,17 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log(this.name + " took " + damage + " damage");
 
+        if (_currentHealth == 1 && _graceHit)
+        {
+            _lastHit = Time.time;
+            StartCoroutine(StartIFrames());
+            _hitParticles.Play();
+            FunctionTimer.Create(() => _hitParticles.Stop(), _hitParticles.main.duration);
+            iTween.ShakePosition(_healthBar, Vector3.one * _shakeIntensity, _shakeTime);
+            _graceHit = false;
+            return;
+        }
+
         _currentHealth -= damage;
 
         if (_currentHealth > 0)
@@ -114,6 +126,8 @@ public class PlayerHealth : MonoBehaviour
         if (_currentHealth > _startingHealth)
             _currentHealth = _startingHealth;
         OnHealthChange.Invoke();
+        if (_currentHealth > 1)
+            _graceHit = true;
     }
 
     public bool IsFullHealth()
