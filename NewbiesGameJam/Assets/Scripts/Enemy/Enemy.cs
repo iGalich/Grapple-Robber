@@ -49,17 +49,12 @@ public class Enemy : MonoBehaviour
 
     public void GotHit()
     {
-        if (_player.GetComponent<PlayerMovement>().IsGrappling)
-        {
-            GameManager.Instance.playerAnimator.TriggerKick();
-            GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
-            TimeManager.Instance.DoSlowmotion(_shakeTime);
-            Death();
-        }
-        else
-        {
-            _player.GetComponent<PlayerHealth>().TakeDamage(_meleeDamage);
-        }
+
+        GameManager.Instance.playerAnimator.TriggerKick();
+        GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+        TimeManager.Instance.DoSlowmotion(_shakeTime);
+        Death();
+
         //FunctionTimer.Create(() => Death(), _shakeTime * 0.5f);
     }
 

@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        Testing();
+        Testing(); // TODO remove
     }
 
     private void Testing()
@@ -96,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
         {
             OnPlayerDeath.Invoke();
             LaunchGrappleGun();
+            FunctionTimer.Create(() => GameManager.Instance.ResetLevel(), 1f);
         }
     }
 

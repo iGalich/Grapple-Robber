@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe4d2900f57e154a9edeb163e6661ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  _speed: 3
   _rotateSpeed: 1
   _damage: 0
   _rotationLimit: Infinity
