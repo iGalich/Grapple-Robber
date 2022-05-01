@@ -28,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9069816239827890199}
-  m_LocalRotation: {x: 0, y: 0, z: -0.99449545, w: 0.10478032}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 23.445553, y: 14.698577, z: 0}
   m_LocalScale: {x: 0.32, y: 0.32, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -167.971}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &9069816239827890194
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1672391789
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 815361895, guid: 26ba45e579163d84da2c4b566156d76c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -121,11 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe4d2900f57e154a9edeb163e6661ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
-  _rotateSpeed: 200
+  _speed: 3
+  _rotateSpeed: 350
   _damage: 1
-  _rotationLimit: 150
-  _isHoming: 0
+  _rotationLimit: 50
+  _isHoming: 1
   _lifetime: 5
   _explosionEffectPrefab: {fileID: 1610671496326706337, guid: df3b05b55ec5c454c867e91adba15754, type: 3}
   _shakeIntensity: 10
@@ -144,9 +144,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.09018779, y: 0}
   serializedVersion: 2
-  m_Radius: 0.115
+  m_Radius: 0.11070371
 --- !u!95 &420781505
 Animator:
   serializedVersion: 4

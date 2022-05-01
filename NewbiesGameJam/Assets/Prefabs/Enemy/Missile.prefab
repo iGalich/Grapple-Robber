@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4633206662395784666}
   - component: {fileID: 4633206662395784667}
   - component: {fileID: 4633206662395784671}
+  - component: {fileID: 1775361026}
   m_Layer: 8
   m_Name: Missile
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4633206662395784664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.24, y: -0.42, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 0.64, y: 0.64, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,10 +74,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1672391789
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d7094718bdac022428dd29244922d06b, type: 3}
+  m_Sprite: {fileID: -1191542091, guid: 8905b1dbbe3717044ad6651008bb4238, type: 3}
   m_Color: {r: 0.6603774, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 1
@@ -120,11 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe4d2900f57e154a9edeb163e6661ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 2
   _rotateSpeed: 200
-  _explosionEffect: {fileID: 5494339837314741688, guid: 58b9ddd2a62d53a4995c306107f89dfe, type: 3}
   _damage: 1
   _rotationLimit: Infinity
+  _isHoming: 1
+  _lifetime: Infinity
+  _explosionEffectPrefab: {fileID: 3238982837413126224, guid: 3bad98ae42eb4674f8e4abd75ceb6a33, type: 3}
+  _shakeIntensity: 10
+  _shakeTime: 0.5
+  _doShake: 1
 --- !u!58 &4633206662395784671
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -132,12 +138,32 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4633206662395784664}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0875026, y: 0.0030173454}
   serializedVersion: 2
-  m_Radius: 0.115
+  m_Radius: 0.20250353
+--- !u!95 &1775361026
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633206662395784664}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f9f866d22d3ce094eb80d7a241e916a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
