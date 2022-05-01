@@ -17,4 +17,31 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Green/Green_01.unity
     guid: c57b281a2a267b44695117248a1610d4
+  - enabled: 1
+    path: Assets/Scenes/Levels/Green/Green_02 1.unity
+    guid: 5f8d27bf44be4954b98e404b058345d7
+  - enabled: 1
+    path: Assets/Scenes/Levels/Green/Green_03.unity
+    guid: 82a2fca89c9ed964b9a1759b4a812c10
+  - enabled: 1
+    path: Assets/Scenes/Levels/Blue/Blue_01.unity
+    guid: b16f8b453c18b4a419250b04e070a274
+  - enabled: 1
+    path: Assets/Scenes/Levels/Blue/Blue_02.unity
+    guid: 6b8f53df4b3f37d42841127ce909fdd2
+  - enabled: 1
+    path: Assets/Scenes/Levels/Blue/Blue_03.unity
+    guid: 36f3f6a262e10e241b6527a57cf4127b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Red/Red_01.unity
+    guid: c17799ae1fe6591409140cd51e03666b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Red/Red_02.unity
+    guid: d28e06d415c8eb54589a56dc02d1c998
+  - enabled: 1
+    path: Assets/Scenes/Levels/Red/Red_03.unity
+    guid: ab3e483e17440c943b9e41bbdc86fde5
+  - enabled: 1
+    path: Assets/Scenes/Levels/BossScene.unity
+    guid: 28da84c965495c548a601f5113c28371
   m_configObjects: {}

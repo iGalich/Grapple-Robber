@@ -134,7 +134,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 15
 --- !u!114 &1353089447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,8 +254,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1672391789
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1053035715, guid: ed738cd6ccc68754fbf0962feae1c479, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -282,8 +282,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shakeIntensity: 10
   _shakeTime: 0.5
+  _meleeDamage: 1
   _attackCooldown: 2
   _firePoint: {fileID: 2142351518}
+  _dummy: 0
   _projectiles:
   - {fileID: 0}
   - {fileID: 0}
