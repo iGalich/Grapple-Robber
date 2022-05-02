@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private float _initialMoveSpeed;
     private bool _isInControl;
     private bool _canJump;
+    private Vector3 _grappleVelocity = Vector3.one;
+    private Vector3 _currPosition = Vector3.one;
+    private Vector3 _prevPosition = Vector3.one;
 
     private bool _isGrounded = false;
     private bool _isGrappling = false;
@@ -47,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     // References
     private BoxCollider2D _collider;
     private Rigidbody2D _body;
+    private GrapplingGun _grapplingGun;
 
     public Vector2 Velocity => _body.velocity;
     public bool IsInControl => _isInControl;
@@ -61,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _collider = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
+        _grapplingGun = GetComponentInChildren<GrapplingGun>();
     }
 
     private void Start()

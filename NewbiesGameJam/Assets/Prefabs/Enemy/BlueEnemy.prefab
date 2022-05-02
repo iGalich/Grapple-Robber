@@ -280,8 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7504f2a1d630a024b97e153bfcbecbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shakeIntensity: 10
-  _shakeTime: 0.5
+  _shakeIntensity: 3
+  _shakeTime: 0.25
   _meleeDamage: 1
   _attackCooldown: 2
   _firePoint: {fileID: 7096823268537554627}
@@ -307,7 +307,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _fadeSpeed: 0.25
+  _fadeSpeed: 0.5
 --- !u!50 &1468904298533807328
 Rigidbody2D:
   serializedVersion: 4

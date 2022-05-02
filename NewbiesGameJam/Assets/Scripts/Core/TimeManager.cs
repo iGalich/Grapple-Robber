@@ -20,7 +20,7 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        ResetTimeScale();
+        //ResetTimeScale();
     }
 
     public void ResetTimeScale()
@@ -31,9 +31,9 @@ public class TimeManager : MonoBehaviour
 
     public void DoSlowmotion(float length)
     {
-        _slowdownLength = length + 0.25f;
+        // _slowdownLength = length + 0.25f;
 
-        Time.timeScale = _slowdownFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        // Time.timeScale = _slowdownFactor;
+        // Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 }

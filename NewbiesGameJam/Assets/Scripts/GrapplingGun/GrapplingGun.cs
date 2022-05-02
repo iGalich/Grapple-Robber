@@ -30,6 +30,7 @@ public class GrapplingGun : MonoBehaviour
     [Header("Distance")]
     [SerializeField] private bool hasMaxDistance = false;
     [SerializeField] private float maxDistnace = 20;
+    public Vector2 direction;
 
     private enum LaunchType
     {
@@ -84,7 +85,8 @@ public class GrapplingGun : MonoBehaviour
                     Vector2 firePointDistnace = firePoint.position - gunHolder.localPosition;
                     Vector2 targetPos = grapplePoint - firePointDistnace;
                     //gunHolder.position = Vector2.Lerp(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
-                    gunHolder.position = Vector2.LerpUnclamped(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
+                    gunHolder.position = Vector2.MoveTowards(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
+                    //gunHolder.position = Vector2.LerpUnclamped(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
                 }
             }
         }
@@ -182,6 +184,7 @@ public class GrapplingGun : MonoBehaviour
                     m_springJoint2D.connectedAnchor = grapplePoint;
 
                     Vector2 distanceVector = firePoint.position - gunHolder.position;
+                    direction = distanceVector;
 
                     m_springJoint2D.distance = distanceVector.magnitude;
                     m_springJoint2D.frequency = launchSpeed;

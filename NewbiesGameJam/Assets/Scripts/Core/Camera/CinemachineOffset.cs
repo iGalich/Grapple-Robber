@@ -3,7 +3,7 @@ using Cinemachine;
 
 public class CinemachineOffset : MonoBehaviour
 {
-    [SerializeField] private float _camSpeed = 1f;
+    private float _camSpeed = 0.2f;
     private Rigidbody2D _playerBody;
     private Transform _player;
     private CinemachineVirtualCamera _vCam;

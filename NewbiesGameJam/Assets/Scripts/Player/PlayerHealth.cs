@@ -94,7 +94,7 @@ public class PlayerHealth : MonoBehaviour
         {
             OnPlayerDeath.Invoke();
             LaunchGrappleGun();
-            FunctionTimer.Create(() => GameManager.Instance.ResetLevel(), 1f);
+            FunctionTimer.Create(() => GameManager.Instance.ResetLevel(), 3f);
         }
     }
 

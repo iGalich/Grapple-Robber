@@ -15,8 +15,27 @@ public class RopeCollider : MonoBehaviour
 
     private void Update()
     {
-        _collisionPoints = CalculateColliderPoints();
-        _collider.SetPath(0, _collisionPoints.ConvertAll(p => (Vector2)transform.InverseTransformPoint(p)));
+        if (Input.GetMouseButtonDown(0) && _grapplingRope.isGrappling)
+        {
+            _collisionPoints = CalculateColliderPoints();
+            _collider.SetPath(0, _collisionPoints.ConvertAll(p => (Vector2)transform.InverseTransformPoint(p)));
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _collisionPoints = ResetCollisionPoints();
+        }
+    }
+
+    private List<Vector2> ResetCollisionPoints()
+    {
+        Vector3[] positions = new Vector3[1];
+        positions[0] = Vector3.zero;
+
+        List<Vector2> colliderPositions = new List<Vector2>
+        {
+            positions[0],
+        };
+        return colliderPositions;
     }
     
     private List<Vector2> CalculateColliderPoints()

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else if (Instance != null && Instance != this)
             Destroy(gameObject);
+
+        Application.targetFrameRate = 30;
     }
 
     private void Update()

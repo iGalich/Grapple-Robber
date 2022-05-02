@@ -128,8 +128,8 @@ MonoBehaviour:
   _isHoming: 1
   _lifetime: Infinity
   _explosionEffectPrefab: {fileID: 5659260107815369260, guid: be0be9fb01a129d4ba7cb413f3a643d1, type: 3}
-  _shakeIntensity: 10
-  _shakeTime: 0.5
+  _shakeIntensity: 3
+  _shakeTime: 0.25
   _doShake: 1
 --- !u!58 &3504329616795836871
 CircleCollider2D:
