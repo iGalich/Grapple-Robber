@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Green_01")
-        {
-            
-        }
+        
     }
 }

@@ -51,13 +51,18 @@ public class Enemy : MonoBehaviour
 
     public void GotHit()
     {
-
         GameManager.Instance.playerAnimator.TriggerKick();
         GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
         //TimeManager.Instance.DoSlowmotion(_shakeTime);
         Death();
 
         //FunctionTimer.Create(() => Death(), _shakeTime * 0.5f);
+    }
+
+    public void OnRopeHit()
+    {
+        GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+        Death();
     }
 
     private void FacePlayer()
@@ -68,6 +73,9 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(-_spriteSize, _spriteSize, 0);
         else
             transform.localScale = new Vector3(_spriteSize, _spriteSize);
+        
+        if (_spriteSize < 0)
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 0f);
     }
 
     private void AttackPlayer()

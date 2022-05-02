@@ -40,7 +40,11 @@ public class HomingMissile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_rotationLimit <= 0) return;
+        if (_rotationLimit <= 0)
+        {
+            _body.constraints = RigidbodyConstraints2D.FreezeRotation;
+            return;
+        }
 
         if (_isHoming)
         {
@@ -70,8 +74,9 @@ public class HomingMissile : MonoBehaviour
             GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
 
         _explosionParticles = Instantiate(_explosionEffectPrefab, transform.position, transform.rotation);
-        gameObject.SetActive(false);
         GetComponent<CircleCollider2D>().enabled = false;
+        _body.constraints = RigidbodyConstraints2D.None;
+        gameObject.SetActive(false);
         _rotationLimit = _initialRotationLimit;
         Destroy(_explosionParticles, _explosionParticles.GetComponent<ParticleSystem>().main.duration);
     }

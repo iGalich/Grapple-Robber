@@ -127,8 +127,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthPickupPrefab: {fileID: 66593698588436267, guid: ea55d068a0d063f42ba77d3eb904cdb8, type: 3}
-  _pushValue: 300
+  _pushValue: 150
   _dropChance: 50
+  _particles: {fileID: 7564058727732695985, guid: 1ced54329de141449a650d7861ee3b29, type: 3}
 --- !u!50 &2824737685709540025
 Rigidbody2D:
   serializedVersion: 4
@@ -149,7 +150,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &2607377475662385298
 CircleCollider2D:
   m_ObjectHideFlags: 0

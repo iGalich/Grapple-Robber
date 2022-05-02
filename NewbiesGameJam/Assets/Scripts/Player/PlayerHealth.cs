@@ -66,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (Time.time - _lastHit <= _iFramesDuration) return;
+        if (Time.time - _lastHit <= _iFramesDuration || damage == 0) return;
 
         if (_currentHealth == 1 && _graceHit)
         {
@@ -78,7 +78,6 @@ public class PlayerHealth : MonoBehaviour
             _graceHit = false;
             return;
         }
-
         _currentHealth -= damage;
 
         if (_currentHealth > 0)

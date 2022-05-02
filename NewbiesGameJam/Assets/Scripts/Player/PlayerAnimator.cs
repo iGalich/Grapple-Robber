@@ -23,6 +23,18 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (_player == null) return;
 
+        if (!_player.IsInControl)
+        {
+            _anim.SetBool(KickKey, false);
+            _anim.SetBool(HurtKey, false);
+            _anim.SetBool(RunKey, false);
+            _anim.SetBool(FallKey, false);
+            _anim.SetBool(JumpKey, false);
+            _anim.SetBool(GroundedKey, false);
+            _anim.SetBool(WallGrabKey, false);
+            return;
+        }
+
         if (_checkingAnimations)
             UpdatePlayerAnimation();
         else

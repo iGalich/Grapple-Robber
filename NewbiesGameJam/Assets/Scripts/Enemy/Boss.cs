@@ -24,6 +24,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private float _speed = 2f;
     [SerializeField] private Transform _leftBound;
     [SerializeField] private Transform _rightBound;
+    private bool _canMove;
 
     [Header ("Shake Parameters")]
     [SerializeField] private float _shakeIntensity = 10f;
@@ -48,6 +49,11 @@ public class Boss : MonoBehaviour
     [Header ("Slam")]
     [SerializeField] private GameObject _slamPoint;
 
+    [Header ("Final screen")]
+    [SerializeField] private CanvasGroup _finalScreen;
+
+    public bool CanMove { get => _canMove; set => _canMove = value; }
+
     private void Awake()
     {
         _sprite = GetComponent<SpriteRenderer>();
@@ -66,6 +72,7 @@ public class Boss : MonoBehaviour
 
     private void Update()
     {
+        if (!_canMove) return;
         FacePlayer();
         DecideState();
         SyncHealth();
@@ -79,7 +86,19 @@ public class Boss : MonoBehaviour
             _inAction = false;
             _isAlive = false;
             _anim.SetTrigger(DeathKey);
+            FunctionTimer.Create(() => StartCoroutine(ShowWinScreen()), 5f); 
         }
+    }
+
+    private IEnumerator ShowWinScreen()
+    {
+        _playerMovement.ForceMovementStop = false;
+        while (_finalScreen.alpha < 1)
+        {
+            _finalScreen.alpha += 0.0001f;
+            yield return null;
+        }
+        _finalScreen.alpha = 1;
     }
 
     private void SyncHealth()
@@ -236,7 +255,7 @@ public class Boss : MonoBehaviour
         FunctionTimer.Create(() => ChooseAttack(), _stateCooldown);
     }
 
-    private void FacePlayer(bool ignoreBool = false)
+    public void FacePlayer(bool ignoreBool = false)
     {
         if (!_isAlive) return;
         

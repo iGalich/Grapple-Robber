@@ -15,13 +15,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _grappleVelocity = Vector3.one;
     private Vector3 _currPosition = Vector3.one;
     private Vector3 _prevPosition = Vector3.one;
+    private bool _startedChangingGravity = false;
+    private bool _forceMovementStop = true;
 
     private bool _isGrounded = false;
     private bool _isGrappling = false;
     private bool _isJumping = false;
     private bool _isFalling = false;
     private bool _isJumpingFromWall = false;
-
 
     [Header ("Coyote Time")]
     [SerializeField] private float _coyoteTime = 0.25f;
@@ -53,13 +54,15 @@ public class PlayerMovement : MonoBehaviour
     private GrapplingGun _grapplingGun;
 
     public Vector2 Velocity => _body.velocity;
-    public bool IsInControl => _isInControl;
     public float HorizontalInput => _horizontalInput;
     public bool IsJumping => _isJumping;
     public bool IsFalling => _isFalling;
     public bool IsGrabbingWall => _isGrabbingWall;
     public bool IsGrounded => _isGrounded;
     public bool IsGrappling => _isGrappling;
+
+    public bool IsInControl { get => _isInControl; set => _isInControl = value; }
+    public bool ForceMovementStop { get => _forceMovementStop; set => _forceMovementStop = value; }
 
     private void Awake() 
     {
@@ -84,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _wallJumpCounter -= Time.deltaTime;
         }
+        _isInControl = _forceMovementStop;
 
         FlipSprite();
 
@@ -132,7 +136,12 @@ public class PlayerMovement : MonoBehaviour
                 _coyoteCounter = 0f;
             Jump();
         }
-        _isGrappling = Input.GetMouseButton(0);
+        _isGrappling = _grapplingGun.IsRopeOn();
+        if (_isGrappling && Input.GetMouseButtonDown(0))
+        {
+            _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * 0.75f);
+            _body.gravityScale = _initialGravity * 0.2f;
+        }
     }
 
     private void CheckJumpRelease()
@@ -213,7 +222,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
         if (_isInControl && _canJump && (_isGrounded || _coyoteCounter >= 0))
         {
