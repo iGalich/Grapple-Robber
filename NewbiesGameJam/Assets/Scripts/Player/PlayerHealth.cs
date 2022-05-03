@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header ("Health")]
     [SerializeField] private int _startingHealth = 6;
-    [SerializeField] private int _currentHealth; // serialized for testing purposes
+    [SerializeField] private int _currentHealth;
     private bool _isDead = false;
     private bool _graceHit = true;
 
@@ -35,22 +36,37 @@ public class PlayerHealth : MonoBehaviour
     [Header ("Particles")]
     [SerializeField] private ParticleSystem _hitParticles;
 
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _healSfx;
+    [SerializeField] private AudioClip _damageTaken;
+
     public int StartingHealth => _startingHealth;
-    public int CurrentHealth => _currentHealth;
+    public int CurrentHealth { get => _currentHealth ; set => _currentHealth = value; }
 
     private void Awake()
     {
-        _currentHealth = _startingHealth;
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            _currentHealth = _startingHealth;
     }
 
     private void Start()
     {
         _iFramesTick = new WaitForSeconds(_iFramesDeltaTime);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            _currentHealth = _startingHealth;
+        OnHealthChange.Invoke();
     }
 
     private void Update()
     {
-        Testing(); // TODO remove
+        //Testing(); // TODO remove
+        EmergencyDeath();
+    }
+
+    private void EmergencyDeath()
+    {
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R))
+            TakeDamage(10);
     }
 
     private void Testing()
@@ -79,6 +95,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
         _currentHealth -= damage;
+        AudioManager.Instance.PlaySound(_damageTaken);
 
         if (_currentHealth > 0)
         {
@@ -121,6 +138,7 @@ public class PlayerHealth : MonoBehaviour
     public void AddHealth(int value)
     {
         _currentHealth += value;
+        AudioManager.Instance.PlaySound(_healSfx);
         if (_currentHealth > _startingHealth)
             _currentHealth = _startingHealth;
         OnHealthChange.Invoke();

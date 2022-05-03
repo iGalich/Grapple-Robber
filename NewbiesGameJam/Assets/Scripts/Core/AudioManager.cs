@@ -5,8 +5,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    private AudioSource _audioSource;
-    private AudioSource _musicSource;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _musicSource;
 
     [SerializeField] private AudioClip _tutorialMusic;
     [SerializeField] private AudioClip _greenMusic;
@@ -18,9 +18,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake() 
     {
-        _audioSource = GetComponent<AudioSource>();
-        _musicSource = GetComponentInChildren<AudioSource>();
-
         if (Instance == null)
         {
             Instance = this;

@@ -10312,6 +10312,10 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  _ungrappableLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _jumpSfx: {fileID: 8300000, guid: c62ac6563a40de1429f73ce0a6b6bd04, type: 3}
 --- !u!50 &339895432582612994
 Rigidbody2D:
   serializedVersion: 4
@@ -10457,6 +10461,8 @@ MonoBehaviour:
   _shakeIntensity: 10
   _shakeTime: 0.5
   _hitParticles: {fileID: 552292179}
+  _healSfx: {fileID: 8300000, guid: f572b6db148cd284399521352032d483, type: 3}
+  _damageTaken: {fileID: 8300000, guid: 54f8795b015ee544e805e6c3c6a249ed, type: 3}
 --- !u!1 &339895432757033431
 GameObject:
   m_ObjectHideFlags: 0
@@ -10560,7 +10566,7 @@ MonoBehaviour:
   grappableLayerNumbers: 06000000
   _playerLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 928
   _grappableLayers:
   - serializedVersion: 2
     m_Bits: 64
@@ -10575,6 +10581,8 @@ MonoBehaviour:
   hasMaxDistance: 1
   maxDistnace: 7
   direction: {x: 0, y: 0}
+  _launchRopeSfx: {fileID: 8300000, guid: 9b3720c5223565146af6752c539a9df6, type: 3}
+  _impactSfx: {fileID: 8300000, guid: 1f93e648782e9574a97c664790cd2d25, type: 3}
   launchToPoint: 1
   launchType: 1
   launchSpeed: 1.5

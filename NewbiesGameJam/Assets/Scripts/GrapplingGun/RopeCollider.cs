@@ -22,7 +22,10 @@ public class RopeCollider : MonoBehaviour
         _collider.SetPath(0, _collisionPoints.ConvertAll(p => (Vector2)transform.InverseTransformPoint(p)));
 
         if (Input.GetMouseButtonUp(0))
+        {
             _collider.enabled = false;
+            ResetCollisionPoints();
+        }
         // if (Input.GetMouseButton(0) && _grapplingRope.isGrappling)
         // {
         //     _collisionPoints = CalculateColliderPoints();

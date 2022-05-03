@@ -131,6 +131,7 @@ MonoBehaviour:
   _shakeIntensity: 3
   _shakeTime: 0.25
   _doShake: 1
+  _explosionSfx: {fileID: 8300000, guid: d61745a4114f4f34eabe16116583c28d, type: 3}
 --- !u!58 &3504329616795836871
 CircleCollider2D:
   m_ObjectHideFlags: 0

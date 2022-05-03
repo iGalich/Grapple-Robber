@@ -6,6 +6,7 @@ public class Destructible : MonoBehaviour
     [SerializeField] private float _pushValue = 1000f;
     [SerializeField] private float _dropChance = 50f;
     [SerializeField] private GameObject _particles;
+    [SerializeField] private AudioClip _breakSfx;
     private GameObject _healthPickup;
     private BoxCollider2D _collider;
 
@@ -20,6 +21,7 @@ public class Destructible : MonoBehaviour
         {
             Debug.Log(other.name);
             _collider.enabled = false;
+            AudioManager.Instance.PlaySound(_breakSfx);
             //_grappleGun = Instantiate(_grappleGunPrefab, GameManager.Instance.player.transform.position + new Vector3(0.32f, 0, 0), Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f)));
             //_grappleGun.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-_pushValue , _pushValue), Random.Range(-_pushValue , _pushValue)));
             if (Random.value > (100 - _dropChance) / 100f)

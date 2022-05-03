@@ -32,6 +32,10 @@ public class GrapplingGun : MonoBehaviour
     [SerializeField] private float maxDistnace = 20;
     public Vector2 direction;
 
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _launchRopeSfx;
+    [SerializeField] private AudioClip _impactSfx;
+
     private enum LaunchType
     {
         Transform_Launch,
@@ -149,6 +153,7 @@ public class GrapplingGun : MonoBehaviour
                             grapplePoint = _hit.point;
                             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
                             grappleRope.enabled = true;
+                            AudioManager.Instance.PlaySound(_launchRopeSfx);
                             break;
                         }
                     }
@@ -164,6 +169,7 @@ public class GrapplingGun : MonoBehaviour
 
     public void Grapple()
     {
+        AudioManager.Instance.PlaySound(_impactSfx);
         m_springJoint2D.autoConfigureDistance = false;
         if (!launchToPoint && !autoConfigureDistance)
         {

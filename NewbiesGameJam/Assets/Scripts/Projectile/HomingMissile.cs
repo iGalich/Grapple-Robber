@@ -24,6 +24,9 @@ public class HomingMissile : MonoBehaviour
     [SerializeField] private bool _doShake = false;
     private GameObject _explosionParticles;
 
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _explosionSfx;
+
     private void Start()
     {
         _body = GetComponent<Rigidbody2D>();
@@ -65,7 +68,7 @@ public class HomingMissile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.name == "Range" || other.name == "LevelBounds" || other.name == "Boss") return;
+        if (other.name == "Range" || other.name == "LevelBounds" || other.name == "Boss" || other.name == "LevelBoundsPostCutscene") return;
         
         if (other.gameObject.CompareTag("Player"))
             GameManager.Instance.player.GetComponent<PlayerHealth>().TakeDamage(_damage);
@@ -76,6 +79,7 @@ public class HomingMissile : MonoBehaviour
         _explosionParticles = Instantiate(_explosionEffectPrefab, transform.position, transform.rotation);
         GetComponent<CircleCollider2D>().enabled = false;
         _body.constraints = RigidbodyConstraints2D.None;
+        AudioManager.Instance.PlaySound(_explosionSfx);
         gameObject.SetActive(false);
         _rotationLimit = _initialRotationLimit;
         Destroy(_explosionParticles, _explosionParticles.GetComponent<ParticleSystem>().main.duration);

@@ -12,6 +12,10 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private GameObject _tiles;
     [SerializeField] private GameObject _bossHealthBar;
 
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _nameAppearSfx;
+    [SerializeField] private AudioClip _bossScreamSfx;
+
     private bool _cutsceneHasPlayed = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -59,11 +63,15 @@ public class CutsceneManager : MonoBehaviour
 
     private void MakeBossNameAppear()
     {
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_bossScreamSfx), 0.5f);
         FunctionTimer.Create(() => _bossName[0].SetActive(true), 1f);
         FunctionTimer.Create(() => iTween.ShakePosition(_bossName[0], Vector3.one * _shakePower, 1f), 1.01f);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_nameAppearSfx), 1.01f);
         FunctionTimer.Create(() => _bossName[1].SetActive(true), 2f);
         FunctionTimer.Create(() => iTween.ShakePosition(_bossName[1], Vector3.one * _shakePower, 1f), 2.01f);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_nameAppearSfx), 2.01f);
         FunctionTimer.Create(() => _bossName[2].SetActive(true), 3f);
         FunctionTimer.Create(() => iTween.ShakePosition(_bossName[2], Vector3.one * _shakePower, 1f), 3.01f);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_nameAppearSfx), 3.01f);
     }
 }

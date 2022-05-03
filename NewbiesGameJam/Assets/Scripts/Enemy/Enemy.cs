@@ -19,9 +19,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _firePoint;
     [SerializeField] private bool _dummy = false;
     private float _lastAttack;
+    private bool _isDead = false;
 
     [Header ("Projectile Pool")]
     [SerializeField] private GameObject[] _projectiles;
+
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _fireSfx;
+    [SerializeField] private AudioClip _deathSfx;
 
     [Header ("Animations")]
     [SerializeField] private float _fadeSpeed = 0.5f;
@@ -43,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (_dummy) return;
+        if (_dummy || _isDead) return;
         
         FacePlayer();
         AttackPlayer();
@@ -51,8 +56,10 @@ public class Enemy : MonoBehaviour
 
     public void GotHit()
     {
+        if (_isDead) return;
         GameManager.Instance.playerAnimator.TriggerKick();
         GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
+        AudioManager.Instance.PlaySound(_deathSfx);
         //TimeManager.Instance.DoSlowmotion(_shakeTime);
         Death();
 
@@ -101,6 +108,7 @@ public class Enemy : MonoBehaviour
         _lastAttack = Time.time;
         _projectiles[index].transform.position = _firePoint.position;
         _projectiles[index].SetActive(true);
+        AudioManager.Instance.PlaySound(_fireSfx);
     }
 
     private int FindProjectile()
@@ -115,6 +123,7 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
+        _isDead = true;
         // Debug.Log(this + " is dead");
         // Destroy(gameObject);
         _anim.SetTrigger(DeathKey);

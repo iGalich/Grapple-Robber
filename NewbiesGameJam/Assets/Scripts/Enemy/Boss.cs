@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     [Header ("References")]
+    [SerializeField] private GameObject _finalDisk;
     private float _spriteSize;
     private SpriteRenderer _sprite;
     private GameObject _playerObject;
@@ -52,6 +53,11 @@ public class Boss : MonoBehaviour
     [Header ("Final screen")]
     [SerializeField] private CanvasGroup _finalScreen;
 
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _damageTaken;
+    [SerializeField] private AudioClip _slamSfx;
+    [SerializeField] private AudioClip _bossScreamSfx;
+
     public bool CanMove { get => _canMove; set => _canMove = value; }
 
     private void Awake()
@@ -81,21 +87,38 @@ public class Boss : MonoBehaviour
 
     private void CheckIfDead()
     {
-        if (_currHealth <= 0)
+        if (_currHealth <= 0 && _isAlive)
         {
+            _playerHealth.CurrentHealth += 5;
             _inAction = false;
             _isAlive = false;
             _anim.SetTrigger(DeathKey);
-            FunctionTimer.Create(() => StartCoroutine(ShowWinScreen()), 5f); 
+            DeathScream();
+            FunctionTimer.Create(() => _healthBar.SetActive(false), 4.5f);
+            FunctionTimer.Create(() => AudioManager.Instance.MusicSource.Stop(), 4.5f);
+            FunctionTimer.Create(() => _finalDisk.SetActive(true), 5f); 
         }
+    }
+
+    private void DeathScream()
+    {
+        AudioManager.Instance.PlaySound(_bossScreamSfx);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_damageTaken), 1f);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_damageTaken), 2f);
+        FunctionTimer.Create(() => AudioManager.Instance.PlaySound(_damageTaken), 3f);
+    }
+
+    public void WinScreenCo()
+    {
+        StartCoroutine(ShowWinScreen());
     }
 
     private IEnumerator ShowWinScreen()
     {
-        _playerMovement.ForceMovementStop = false;
+        //_playerMovement.ForceMovementStop = false;
         while (_finalScreen.alpha < 1)
         {
-            _finalScreen.alpha += 0.0001f;
+            _finalScreen.alpha += 0.0005f;
             yield return null;
         }
         _finalScreen.alpha = 1;
@@ -118,6 +141,7 @@ public class Boss : MonoBehaviour
             }
             else if (_playerMovement.IsGrappling)
             {
+                AudioManager.Instance.PlaySound(_damageTaken);
                 GameManager.Instance.playerAnimator.TriggerKick();
                 GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
                 TimeManager.Instance.DoSlowmotion(_shakeTime);
@@ -131,6 +155,11 @@ public class Boss : MonoBehaviour
                 GameManager.Instance.cinemachineShake.ShakeCamera(_shakeIntensity, _shakeTime);
             }
         }
+    }
+
+    public void PlaySlamSfx()
+    {
+        AudioManager.Instance.PlaySound(_slamSfx);
     }
 
     private void DecideState()
@@ -149,7 +178,7 @@ public class Boss : MonoBehaviour
             ability = Random.Range(0, 3);
         } while (ability == _lastAbility);
         _lastAbility = ability;
-
+        
         switch (ability)
         {
             case 0:

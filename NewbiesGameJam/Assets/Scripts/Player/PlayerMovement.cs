@@ -47,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header ("Layers")]
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _ungrappableLayer;
+
+    [Header ("Sfx")]
+    [SerializeField] private AudioClip _jumpSfx;
 
     // References
     private BoxCollider2D _collider;
@@ -146,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckJumpRelease()
     {
-        if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0)
+        if (Input.GetKeyUp(KeyCode.Space) && _body.velocity.y > 0 && !_isJumpingFromWall)
         {
             _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * _adjustableFallJump);
         }
@@ -212,8 +216,9 @@ public class PlayerMovement : MonoBehaviour
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
-                _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed, _jumpPower); // send the player away from the wall
+                _body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * _speed * 5f, _jumpPower); // send the player away from the wall
                 _isGrabbingWall = false;
+                AudioManager.Instance.PlaySound(_jumpSfx);
             }
         }
         else if (!_isGrappling)
@@ -226,6 +231,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isInControl && _canJump && (_isGrounded || _coyoteCounter >= 0))
         {
+            AudioManager.Instance.PlaySound(_jumpSfx);
             _coyoteCounter = 0f;
             _canJump = false;
             _body.velocity = new Vector2(_body.velocity.x, _jumpPower);
@@ -261,7 +267,8 @@ public class PlayerMovement : MonoBehaviour
     {
         _isGrounded = false;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(_groundCheckCollider.position, 0.05f, _groundLayer);
-        return colliders.Length > 0;
+        Collider2D[] otherColliders = Physics2D.OverlapCircleAll(_groundCheckCollider.position, 0.05f, _ungrappableLayer);
+        return colliders.Length > 0 || otherColliders.Length > 0;
     }
 
     private void OnDrawGizmos()
