@@ -27,7 +27,7 @@ public class Destructible : MonoBehaviour
             if (Random.value > (100 - _dropChance) / 100f)
             {
                 _healthPickup = Instantiate(_healthPickupPrefab, transform.position, Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f)));
-                _healthPickup.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-_pushValue , _pushValue), Random.Range(-_pushValue , _pushValue)));
+                //_healthPickup.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-_pushValue , _pushValue), Random.Range(-_pushValue , _pushValue)));
             }
             Instantiate(_particles, transform.position, Quaternion.identity);
             Destroy(gameObject);

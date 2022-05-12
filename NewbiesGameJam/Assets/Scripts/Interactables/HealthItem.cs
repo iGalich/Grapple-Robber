@@ -12,7 +12,7 @@ public class HealthItem : MonoBehaviour
         _spawnTime = Time.time;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (Time.time - _spawnTime <= _delay) return;
 

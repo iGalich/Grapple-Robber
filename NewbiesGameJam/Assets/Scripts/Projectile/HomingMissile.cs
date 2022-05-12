@@ -16,6 +16,7 @@ public class HomingMissile : MonoBehaviour
     private float _initialRotationLimit;
     private float _lifetimeCount = float.NegativeInfinity;
     private bool _gotDirection = false;
+    private Quaternion _initialRotation;
     
     [Header ("Explosion parameters")]
     [SerializeField] private GameObject _explosionEffectPrefab;
@@ -32,6 +33,7 @@ public class HomingMissile : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         _target = GameManager.Instance.player.transform;
         _initialRotationLimit = _rotationLimit;
+        _initialRotation = this.transform.rotation;
     }
 
     private void Update()
@@ -82,6 +84,7 @@ public class HomingMissile : MonoBehaviour
         AudioManager.Instance.PlaySound(_explosionSfx);
         gameObject.SetActive(false);
         _rotationLimit = _initialRotationLimit;
+        transform.rotation = _initialRotation;
         Destroy(_explosionParticles, _explosionParticles.GetComponent<ParticleSystem>().main.duration);
     }
 
